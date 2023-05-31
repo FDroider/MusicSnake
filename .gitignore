@@ -1,0 +1,11 @@
+config.py
+dsAnti_spam.py
+warn.db
+song.mp3
+requirements.txt
+ffmpeg-master-latest-win64-gpl
+BACKUP
+1
+.idea
+__pycache__
+ffmpegs
