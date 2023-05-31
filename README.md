@@ -10,8 +10,6 @@ This is the instruction for installing the bot
 
 `pip install openai`
 
-`pip install googletrans==3.1.0a0`
-
 `pip install idna==2.10`
 ## Bot install and add server
 1. Download files with repository
