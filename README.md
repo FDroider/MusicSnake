@@ -10,7 +10,6 @@ This is the instruction for installing the bot
 
 `pip install openai`
 
-`pip install idna==2.10`
 ## Bot install and add server
 1. Download files with repository
 2. In the directory with the files of our bot, create a file called ffmpegs (the ffmpeg file will be stored in it)
