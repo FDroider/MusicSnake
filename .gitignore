@@ -1,5 +1,7 @@
 warn.db
 except_user.db
+App.log
+MusicBot.log
 .idea
 .env
 .venv
