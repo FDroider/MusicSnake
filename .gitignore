@@ -1,11 +1,8 @@
-config.py
-dsAnti_spam.py
 warn.db
-song.mp3
-requirements.txt
-ffmpeg-master-latest-win64-gpl
-BACKUP
-1
+except_user.db
 .idea
+.env
+.venv
+cogs/chat-bot.py
 __pycache__
 ffmpegs

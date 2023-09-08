@@ -1,25 +1,20 @@
 import disnake
 import openai
+from os import environ
+from dotenv import load_dotenv, find_dotenv
+from disnake import Localized
 from disnake.ext import commands
-#from typing import List
-#from googletrans import Translator
-from config import api_key
 
 
 class Chat(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        load_dotenv(find_dotenv())
         # Ключ API от openai
-        openai.api_key = api_key
+        openai.api_key = environ["GPT_API"]
 
-    #@commands.command(aliases=['chat', 'чат'])
-    @commands.slash_command(name='chat-gpt')
-    async def chat_bot(self, ctx, prompt: str):
-        """'Команда для общения с GPT-3.5'
-        Parameters
-        ----------
-        prompt: Ваше сообщение которое будет отправлено GPT
-        """
+    @commands.slash_command(name='chat-gpt', description=Localized(key="GPT-COMMAND-DESCRIPTIONS"))
+    async def chat_bot(self, ctx, prompt: str = commands.param(description=Localized(key="GPT-COMMAND-DESCRIPTIONS_PARAMETERS"))):
 
         await ctx.response.defer()
 
@@ -41,24 +36,25 @@ class Chat(commands.Cog):
             {"role": "user", "content": "Hello. You must answer only on 1024 characters"}
         ]
 
-        try:
-            while True:
-                print(messages)
-                user_input = prompt
-                messages = update(messages, "user", user_input)
-                model_response = get_response(messages)
+        # try:
+        while True:
+            print(messages)
+            user_input = prompt
+            messages = update(messages, "user", user_input)
+            model_response = get_response(messages)
 
-                emb = disnake.Embed(title="Chat GPT ответил", description=f"```{model_response}```",
-                                    colour=disnake.Colour.green())
+            emb = disnake.Embed(title="Chat GPT ответил", description=f"```{model_response}```",
+                                colour=disnake.Colour.green())
 
-                await ctx.followup.send(embed=emb)
-                return False
-        except:
-            await ctx.followup.send(embed=disnake.Embed(title="Ошибка",
-                                                        description="Нейросеть превысыла допустимое количество символов "
-                                                                    "для таких вопросов нужно ити нас сайт opanai "
-                                                                    "https://chat.openai.com/",
-                                                        colour=disnake.Colour.red()), ephemeral=True)
+            await ctx.followup.send(embed=emb)
+            return False
+        # except:
+        #     emb_err = disnake.Embed(title="Ошибка",
+        #                             description="Нейросеть превысила допустимое количество символов "
+        #                                         "для таких вопросов нужно идти нас сайт opanai https://chat.openai.com/",
+        #                             colour=disnake.Colour.red())
+        #
+        #     await ctx.followup.send(embed=emb_err, ephemeral=True)
 
 
 def setup(bot):

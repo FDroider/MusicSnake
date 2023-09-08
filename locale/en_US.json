@@ -1,0 +1,237 @@
+{
+  "GPT-COMMAND-DESCRIPTIONS": "The command to communicate with Chat-GPT",
+  "GPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Enter your question for Chat-GPT",
+
+  "RANDOM-COMMAND-DESCRIPTIONS": "Randomizer",
+  "RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT1": "First amount",
+  "RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT2": "Second amount",
+
+  "RANDOM-COMMAND_EMBED-TITLE": "Generated number:",
+
+  "CREATE-VOTE-DESCRIPTIONS": "Create a vote",
+  "CREATE-VOTE-DESCRIPTIONS_PARAMETERS": "Duration (in minutes)",
+  "CREATE-ANNOUNCEMENT-DESCRIPTIONS": "Creating announcements",
+  "CREATE-ANNOUNCEMENT-DESCRIPTIONS_PARAMETERS": "The channel you want to send an ad to",
+
+  "HELP-COMMAND-DESCRIPTIONS": "Help with commands",
+
+  "HELP-COMMAND_EMBED-TITLE": "Commands for control",
+  "HELP-COMMAND_EMBED-FILED1-VALUE": "Welcome",
+  "HELP-COMMAND_EMBED-FILED2-VALUE": "Play music from youtube or youtube music",
+  "HELP-COMMAND_EMBED-FILED3-VALUE": "Adjusts the music volume",
+  "HELP-COMMAND_EMBED-FILED4-VALUE": "Sign out of the voice",
+  "HELP-COMMAND_EMBED-FILED5-VALUE": "Random number",
+  "HELP-COMMAND_EMBED-FILED6-VALUE": "Chat with Chat-GPT",
+  "HELP-COMMAND_EMBED-FILED7-VALUE": "Send a bug report to the developer",
+  "HELP-COMMAND_EMBED-FILED8-VALUE": "View the number of your warnings and violations",
+
+  "HELP-ADMIN-COMMAND-DESCRIPTIONS": "Help on commands for admins",
+
+  "HELP-ADMIN-COMMAND_EMBED-TITLE": "Admin command for control",
+  "HELP-ADMIN-COMMAND_EMBED-FILED1-VALUE": "Chat cleanup",
+  "HELP-ADMIN-COMMAND_EMBED-FILED2-VALUE": "View number of user violations",
+  "HELP-ADMIN-COMMAND_EMBED-FILED3-VALUE": "Issue a warning to the user",
+  "HELP-ADMIN-COMMAND_EMBED-FILED4-VALUE": "Remove user warning",
+  "HELP-ADMIN-COMMAND_EMBED-FILED5-VALUE": "Add bot user to exclusion\n(Not available on all servers)",
+  "HELP-ADMIN-COMMAND_EMBED-FILED6-VALUE": "Remove user from exclusions\n(Not available on all servers)",
+
+  "CLEAR-COMMAND-DESCRIPTIONS": "Clear messages",
+  "CLEAR-COMMAND-DESCRIPTIONS_PARAMETERS": "Number of messages",
+
+  "CLEAR-COMMAND_EMBED-TITLE": "Cleared",
+  "CLEAR-COMMAND_EMBED-DESCRIPTION": "Message cleared:",
+
+  "EXCEPT-COMMAND-DESCRIPTIONS": "Adding a user to an exclusion for a bot (the bot will not check this person)",
+  "EXCEPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Username",
+
+  "EXCEPT-COMMAND-SUCCESS_EMBED-TITLE": "Success",
+  "EXCEPT-COMMAND-SUCCESS_EMBED-DESCRIPTION": "User added to exception",
+
+  "EXCEPT-COMMAND-ERROR_EMBED-TITLE": "Error",
+  "EXCEPT-COMMAND-ERROR_EMBED-DESCRIPTION": "The user is already excluded",
+
+  "DEL-EXCEPT-COMMAND-DESCRIPTIONS": "Remove user from exclusions",
+  "DEL-EXCEPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Username",
+
+  "DEL-EXCEPT-COMMAND-SUCCESS_EMBED-TITLE": "Success",
+  "DEL-EXCEPT-COMMAND-SUCCESS_EMBED-DESCRIPTION": "User removed from exceptions",
+
+  "DEL-EXCEPT-COMMAND-ERROR_EMBED-TITLE": "Error",
+  "DEL-EXCEPT-COMMAND-ERROR_EMBED-DESCRIPTION": "There is no such user in the exceptions",
+
+  "PING-COMMAND-DESCRIPTIONS": "Ping bot",
+  "SHUTDOWN-COMMAND-DESCRIPTIONS": "Shutdown bot",
+
+  "PLAY-COMMAND-DESCRIPTIONS": "Plays music from YouTube or youtube music",
+  "PLAY-COMMAND-DESCRIPTIONS_PARAMETERS": "Link to youtube or youtube music",
+
+  "PLAY-COMMAND-VOICE-ERROR_EMBED-TITLE": "Error connection",
+  "PLAY-COMMAND-VOICE-ERROR_EMBED-DESCRIPTION": "This command can only be used when you are in voice chat",
+
+  "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Error playing",
+  "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "This link is incorrect or not supported!\nCheck the spelling of the link",
+
+  "PLAY-COMMAND-INFO_EMBED-TITLE": "Now playing",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Music title:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "User who plays it:",
+
+  "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Error",
+  "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "You are not connected to voice chat",
+  "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE": "Error",
+  "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION": "Another server member is currently using the bot:",
+
+  "PLAY-COMMAND-BUTTON_PAUSE": "Pause",
+  "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Music is no longer playing or has ended",
+
+  "PLAY-COMMAND-BUTTON_RESUME": "Continue playing",
+  "PLAY-COMMAND-BUTTON_RESUME-ERROR": "Music is already playing",
+
+  "PLAY-COMMAND-BUTTON_SKIP": "Uploading the next music",
+  "PLAY-COMMAND-BUTTON_SKIP-ERROR-TITLE": "Error",
+  "PLAY-COMMAND-BUTTON_SKIP-ERROR-DESCRIPTION": "No next music in queue",
+
+  "PLAY-COMMAND-BUTTON_STOP": "Playback stopped",
+
+  "LEAVE-COMMAND-DESCRIPTIONS": "Leave the voice",
+
+  "LEAVE-ERROR_EMBED-TITLE": "Error",
+  "LEAVE-ERROR_EMBED-DESCRIPTIONS": "The bot is not in the voice",
+
+  "LEAVE-SUCCESS_EMBED-TITLE": "The bot has left the voice",
+
+  "LEAVE-ERROR_EMBED2": "The bot is already disconnected from the voice",
+
+  "REPORT-COMMAND-DESCRIPTIONS": "Report bot problems",
+  "REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE": "Write what problem occurred and after what actions",
+
+  "REPORT-COMMAND_EMBED-TITLE": "Send",
+  "REPORT-COMMAND_EMBED-DESCRIPTION": "your report has been sent to my developer for review and final decision",
+
+  "REPORT-COMMAND_EMBED-FIELD-NAME": "",
+  "REPORT-COMMAND_EMBED-FIELD-VALUE": "",
+
+  "MY-WARNS-COMMAND-DESCRIPTIONS": "Your number of warnings",
+
+  "MY-WARNS-COMMAND_EMBED-TITLE": "Warnings",
+  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "At your place",
+  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "warnings",
+
+  "MY-WARNS-COMMAND_EMBED-FIELD-NAME": "Number of violations",
+  "MY-WARNS-COMMAND_EMBED-FIELD-VALUE1": "At your place",
+
+  "WARNS-COMMAND-DESCRIPTIONS": "View another user's warning counter",
+  "WARNS-COMMAND-DESCRIPTIONS_PARAMETERS": "Username",
+
+  "WARNS-COMMAND_EMBED-TITLE": "Warnings",
+  "WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "In User",
+  "WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "warnings",
+  "WARNS-COMMAND_EMBED-FIELD-NAME": "Number of violations",
+  "WARNS-COMMAND_EMBED-FIELD-VALUE": "The user has them",
+
+  "ADD-WARN-DESCRIPTIONS": "Give a warning to the user",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Username",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-REASON": "The reason for issuing the warning",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "The number of warnings that will be issued",
+
+  "ADD-WARM_EMBED-TITLE": "The user has been issued warns",
+  "ADD-WARN_EMBED-DESCRIPTION": "issued warn/ns",
+  "ADD-WARN_EMBED-FIELD1-NAME": "Nickname of the user to whom the warn was issued",
+  "ADD-WARN_EMBED-FIELD2-NAME": "Reason for issuing warns",
+  "ADD-WARN_EMBED-FIELD3-NAME": "Number of warns",
+
+  "DEL-WARN-DESCRIPTIONS": "Remove warning from user",
+  "DEL-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Username",
+  "DEL-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "The number of warnings that will be collected",
+
+  "DEL-WARN-SUCCESS_EMBED-TITLE": "The warn was taken from the user",
+  "DEL-WARN-SUCCESS_EMBED-DESCRIPTION": "took warn/ns",
+  "DEL-WARN-SUCCESS_EMBED-FIELD1-NAME": "Nickname of the user whose warn was taken",
+  "DEL-WARN-SUCCESS_EMBED-FIELD2-NAME": "Number of warns taken",
+
+  "DEL-WARN-ERROR_EMBED-TITLE": "Error",
+  "DEL-WARN-ERROR_EMBED-DESCRIPTION": "The user has no warns!",
+
+  "ADD-COUNT-DESCRIPTIONS": "Give the user a violation",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Username",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-REASON": "The reason for issuing the violation",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "The number of violations that will be issued",
+
+  "ADD-COUNT_EMBED-TITLE": "The user was issued a violation",
+  "ADD-COUNT_EMBED-DESCRIPTION": "issued a violation",
+  "ADD-COUNT_EMBED-FIELD1-NAME": "Nickname of the user who received the violation",
+  "ADD-COUNT_EMBED-FIELD2-NAME": "Reason for issuing the violation",
+  "ADD-COUNT_EMBED-FIELD3-NAME": "Number of violations",
+
+  "DEL-COUNT-DESCRIPTIONS": "Delete the violation from the user",
+  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Username",
+  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "The number of violations that will be collected",
+
+  "DEL-COUNT-SUCCESS_EMBED-TITLE": "Violation taken from the user",
+  "DEL-COUNT-SUCCESS_EMBED-DESCRIPTION": "took away violation",
+  "DEL-COUNT-SUCCESS_EMBED-FIELD1-NAME": "Nickname of the user from whom the violation was taken",
+  "DEL-COUNT-SUCCESS_EMBED-FIELD2-NAME": "The number of taken violation",
+
+  "DEL-COUNT-ERROR_EMBED-TITLE": "Error",
+  "DEL-COUNT-ERROR_EMBED-DESCRIPTION": "The user has no violations!",
+
+
+  "CHECK-COUNT-BAN_EMBED1-TITLE": "",
+  "CHECK-COUNT-BAN_EMBED1-FIELD1-NAME": "",
+  "CHECK-COUNT-BAN_EMBED1-FIELD2-NAME": "",
+  "CHECK-COUNT-BAN_EMBED1-FIELD2-VALUE": "",
+
+  "CHECK-COUNT-BAN_EMBED2-TITLE": "",
+  "CHECK-COUNT-BAN_EMBED2-FIELD1-NAME": "",
+  "CHECK-COUNT-BAN_EMBED2-FIELD2-NAME": "",
+  "CHECK-COUNT-BAN_EMBED2-FILED2-VALUE": "",
+
+  "CHECK-COUNT-BAN_BAN-REASON": "",
+
+  "CHECK-COUNT-NOTIFICATION_EMBED-TITLE": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD1-NAME": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-NAME": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-VALUE": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-NAME": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-VALUE": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-NAME": "",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-VALUE": "",
+
+  "CHECK-LINK_EMBED-TITLE": "",
+  "CHECK-LINK_EMBED-DESCRIPTION": "",
+  "CHECK-LINK_EMBED-FIELD-NAME": "",
+  "CHECK-LINK_EMBED-FIELD-VALUE": "",
+
+  "CHECK-MESSAGE-WARN_EMBED-TITLE": "",
+  "CHECK-MESSAGE-WARN_EMBED-DESCRIPTION": "",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-TITLE": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART1": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART2": "",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-NAME": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-VALUE": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD2-NAME": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD3-NAME": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD4-NAME": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-NAME": "",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-VALUE": "",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED2-TITLE": "",
+
+  "CHECK-SPAM-ALERT_MESSAGE": "",
+
+  "CHECK-SPAM-WARN_EMBED-TITLE": "",
+  "CHECK-SPAM-WARN_EMBED-DESCRIPTION": "",
+
+  "CHECK-SPAM-NOTIFICATION_EMBED-TITLE": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART1": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART2": "",
+
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-NAME": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-VALUE": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD2-NAME": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD3-NAME": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD4-NAME": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-NAME": "",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-VALUE": ""
+}

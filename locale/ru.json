@@ -1,0 +1,235 @@
+{
+  "GPT-COMMAND-DESCRIPTIONS": "Команда для общения с Chat-GPT",
+  "GPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Задайте вопрос для Chat-GPT",
+
+  "RANDOM-COMMAND-DESCRIPTIONS": "Рандомайзер",
+  "RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT1": "Первое число",
+  "RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT2": "Второе число",
+
+  "RANDOM-COMMAND_EMBED-TITLE": "Згенерированое число:",
+
+  "CREATE-VOTE-DESCRIPTIONS": "Создание голосования",
+  "CREATE-VOTE-DESCRIPTIONS_PARAMETERS": "Время проведения (в минутах)",
+  "CREATE-ANNOUNCEMENT-DESCRIPTIONS": "Создание объявлений",
+  "CREATE-ANNOUNCEMENT-DESCRIPTIONS_PARAMETERS": "Канал, в который хотите отправить объявление",
+
+  "HELP-COMMAND-DESCRIPTIONS": "Помощь по командам",
+
+  "HELP-COMMAND_EMBED-TITLE": "Команды для управления",
+  "HELP-COMMAND_EMBED-FILED1-VALUE": "Приветствие",
+  "HELP-COMMAND_EMBED-FILED2-VALUE": "Воспроизводит музику из ютуба или youtube music",
+  "HELP-COMMAND_EMBED-FILED3-VALUE": "Регулирует громкость музыки",
+  "HELP-COMMAND_EMBED-FILED4-VALUE": "Вийты из войса",
+  "HELP-COMMAND_EMBED-FILED5-VALUE": "Рандомить число",
+  "HELP-COMMAND_EMBED-FILED6-VALUE": "Общайтесь с ботом, а точнее нейросетю",
+  "HELP-COMMAND_EMBED-FILED7-VALUE": "Отправить отчёт об ошибке разработчику",
+  "HELP-COMMAND_EMBED-FILED8-VALUE": "Посмотреть количество своих предупреждений и нарушений",
+
+  "HELP-ADMIN-COMMAND-DESCRIPTIONS": "Помощь по командам для админов",
+
+  "HELP-ADMIN-COMMAND_EMBED-TITLE": "Команды для управления",
+  "HELP-ADMIN-COMMAND_EMBED-FILED1-VALUE": "Очистка чата",
+  "HELP-ADMIN-COMMAND_EMBED-FILED2-VALUE": "Посмотреть количество предупреждений пользавателя",
+  "HELP-ADMIN-COMMAND_EMBED-FILED3-VALUE": "Выдать предупреждение пользавателю",
+  "HELP-ADMIN-COMMAND_EMBED-FILED4-VALUE": "Забрать предупреждение пользавателю",
+  "HELP-ADMIN-COMMAND_EMBED-FILED5-VALUE": "Добавить в исключение пользователя для бота\n(Доступно не на всех серверах)",
+  "HELP-ADMIN-COMMAND_EMBED-FILED6-VALUE": "Убрать из исключений пользователя\\и(Доступно не на всех серверах)",
+
+  "CLEAR-COMMAND-DESCRIPTIONS": "Очистка сообщений",
+  "CLEAR-COMMAND-DESCRIPTIONS_PARAMETERS": "Количество сообщений",
+
+  "CLEAR-COMMAND_EMBED-TITLE": "Очищено",
+  "CLEAR-COMMAND_EMBED-DESCRIPTION": "Сообщений очищено:",
+
+  "EXCEPT-COMMAND-DESCRIPTIONS": "Добавление пользователя в исключение для бота (бот не будет проверять этого человека)",
+  "EXCEPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Ник пользователя",
+
+  "EXCEPT-COMMAND-SUCCESS_EMBED-TITLE": "Успех",
+  "EXCEPT-COMMAND-SUCCESS_EMBED-DESCRIPTION": "Пользаватель добавлен в исключение",
+
+  "EXCEPT-COMMAND-ERROR_EMBED-TITLE": "Ошибка",
+  "EXCEPT-COMMAND-ERROR_EMBED-DESCRIPTION": "Пользаватель уже есть в исключениях",
+
+  "DEL-EXCEPT-COMMAND-DESCRIPTIONS": "Удалить пользователя из исключений",
+  "DEL-EXCEPT-COMMAND-DESCRIPTIONS_PARAMETERS": "Ник пользователя",
+
+  "DEL-EXCEPT-COMMAND-SUCCESS_EMBED-TITLE": "Успех",
+  "DEL-EXCEPT-COMMAND-SUCCESS_EMBED-DESCRIPTION": "Пользаватель удалён с исключений",
+
+  "DEL-EXCEPT-COMMAND-ERROR_EMBED-TITLE": "Ошибка!",
+  "DEL-EXCEPT-COMMAND-ERROR_EMBED-DESCRIPTION": "Нет такого пользавателя в исключениях",
+
+  "PING-COMMAND-DESCRIPTIONS": "Пинг бота",
+  "SHUTDOWN-COMMAND-DESCRIPTIONS": "Вимкнути бота",
+
+  "PLAY-COMMAND-DESCRIPTIONS": "Воспроизводит музыку с ютуба или youtube music",
+  "PLAY-COMMAND-DESCRIPTIONS_PARAMETERS": "Ссылка на youtube или youtube music",
+
+  "PLAY-COMMAND-VOICE-ERROR_EMBED-TITLE": "Ошибка подключения",
+  "PLAY-COMMAND-VOICE-ERROR_EMBED-DESCRIPTION": "Этой командой можно воспользоваться только тогда, когда вы находитесь в войс чате",
+
+  "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Ошибка воспроизвидения",
+  "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "Данная ссылка указана неверно или она не поддерживается!\nПроверьте правильность написания ссилкы",
+
+  "PLAY-COMMAND-INFO_EMBED-TITLE": "Сейчас играет",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Название музыки:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Пользователь который ёё воспроизводит:",
+
+  "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Ошибка",
+  "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "Вы не подключены к войс чату",
+  "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE": "Ошибка",
+  "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION": "Сейчас руководит парадом пользаватель",
+
+  "PLAY-COMMAND-BUTTON_PAUSE": "Пауза",
+  "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Музыка уже не воспроизводится или закончилась",
+
+  "PLAY-COMMAND-BUTTON_RESUME": "Продолжаю проыгривать",
+  "PLAY-COMMAND-BUTTON_RESUME-ERROR": "Музыка уже воспроизводтся",
+
+  "PLAY-COMMAND-BUTTON_SKIP": "Загружаю следующее видео",
+  "PLAY-COMMAND-BUTTON_SKIP-ERROR-TITLE": "Ошибка",
+  "PLAY-COMMAND-BUTTON_SKIP-ERROR-DESCRIPTION": "Нет следующего видео в очереди",
+
+  "PLAY-COMMAND-BUTTON_STOP": "Воспроизведение прекращено",
+
+  "LEAVE-COMMAND-DESCRIPTIONS": "Выйти из войса",
+
+  "LEAVE-ERROR_EMBED-TITLE": "Ошибка",
+  "LEAVE-ERROR_EMBED-DESCRIPTIONS": "Бота нет в войсе",
+
+  "LEAVE-SUCCESS_EMBED-TITLE": "Бот вышел из войса",
+
+  "LEAVE-ERROR_EMBED2": "Бот уже отключен от войса",
+
+  "REPORT-COMMAND-DESCRIPTIONS": "Сообщить о проблемах в работе бота",
+  "REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE": "Напишите, какая проблема возникла и после каких действий",
+
+  "REPORT-COMMAND_EMBED-TITLE": "Отправлено",
+  "REPORT-COMMAND_EMBED-DESCRIPTION": "ваш репорт отправлен моему разработчику на рассмотрение и последственое решение",
+
+  "REPORT-COMMAND_EMBED-FIELD-NAME": "",
+  "REPORT-COMMAND_EMBED-FIELD-VALUE": "",
+
+  "MY-WARNS-COMMAND-DESCRIPTIONS": "Ваше количество предупреждений",
+
+  "MY-WARNS-COMMAND_EMBED-TITLE": "Предупреждения",
+  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "У тебя",
+  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "предупреждения",
+
+  "MY-WARNS-COMMAND_EMBED-FIELD-NAME": "Количество нарушений",
+  "MY-WARNS-COMMAND_EMBED-FIELD-VALUE1": "У тебя",
+
+  "WARNS-COMMAND-DESCRIPTIONS": "Просмотр счетчика предупреждений другого пользователя",
+  "WARNS-COMMAND-DESCRIPTIONS_PARAMETERS": "Ник пользователя",
+
+  "WARNS-COMMAND_EMBED-TITLE": "Предупреждения",
+  "WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "У пользавателя",
+  "WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "предупреждения",
+  "WARNS-COMMAND_EMBED-FIELD-NAME": "Количенство нарушений",
+  "WARNS-COMMAND_EMBED-FIELD-VALUE": "У пользавателя их",
+
+  "ADD-WARN-DESCRIPTIONS": "Выдать пользователю предупреждение",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Ник пользователя",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-REASON": "Причина издания предупреждения",
+  "ADD-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "Количество варнов, которые будут выданы",
+
+  "ADD-WARM_EMBED-TITLE": "Пользователю был выдан варн",
+  "ADD-WARN_EMBED-DESCRIPTION": "выдал варн/ны",
+  "ADD-WARN_EMBED-FIELD1-NAME": "Ник пользователя каторому выдан варн",
+  "ADD-WARN_EMBED-FIELD2-NAME": "Причина выдачи варна",
+  "ADD-WARN_EMBED-FIELD3-NAME": "Количество варнов",
+
+  "DEL-WARN-DESCRIPTIONS": "Удалить предупреждение у пользователя",
+  "DEL-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Ник пользователя",
+  "DEL-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "Количество варнов, которые будут изъяты",
+
+  "DEL-WARN-SUCCESS_EMBED-TITLE": "У пользавателя забрали варн",
+  "DEL-WARN-SUCCESS_EMBED-DESCRIPTION": "забрал варн/ны",
+  "DEL-WARN-SUCCESS_EMBED-FIELD1-NAME": "Ник пользавателя у которого забрали варн",
+  "DEL-WARN-SUCCESS_EMBED-FIELD2-NAME": "Количество забранных варнов",
+
+  "DEL-WARN-ERROR_EMBED-TITLE": "Ошибка",
+  "DEL-WARN-ERROR_EMBED-DESCRIPTION": "У пользавателя нет варнов!",
+
+  "ADD-COUNT-DESCRIPTIONS": "Выдать пользователю нарушение",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Ник пользователя",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-REASON": "Причина выдаваныя нарушена",
+  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "Количество нарушений, которые будут выданы",
+
+  "ADD-COUNT_EMBED-TITLE": "Пользавателю была выдано нарушение",
+  "ADD-COUNT_EMBED-DESCRIPTION": "выдал нарушение",
+  "ADD-COUNT_EMBED-FIELD1-NAME": "Ник пользователя которому выдан нарушение",
+  "ADD-COUNT_EMBED-FIELD2-NAME": "Причина выдачи нарушения",
+  "ADD-COUNT_EMBED-FIELD3-NAME": "Количество нарушений",
+
+  "DEL-COUNT-DESCRIPTIONS": "Удалить нарушения у пользователя",
+  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Ник пользователя",
+  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "Количество нарушений, которые будут изъяты",
+
+  "DEL-COUNT-SUCCESS_EMBED-TITLE": "У пользователя забрали нарушение",
+  "DEL-COUNT-SUCCESS_EMBED-DESCRIPTION": "забрал нерушения",
+  "DEL-COUNT-SUCCESS_EMBED-FIELD1-NAME": "Ник пользавателя у которого забрали нарушение",
+  "DEL-COUNT-SUCCESS_EMBED-FIELD2-NAME": "Количество забраних варнов",
+
+  "DEL-COUNT-ERROR_EMBED-TITLE": "Ошибка",
+  "DEL-COUNT-ERROR_EMBED-DESCRIPTION": "У пользователя нет нарушений!",
+
+
+  "CHECK-COUNT-BAN_EMBED1-TITLE": "Ты был забанен на сервере",
+  "CHECK-COUNT-BAN_EMBED1-FIELD1-NAME": "Сервер на котором забанили",
+  "CHECK-COUNT-BAN_EMBED1-FIELD2-NAME": "Причина бана",
+  "CHECK-COUNT-BAN_EMBED1-FIELD2-VALUE": "Превишение счётчика нарушений",
+
+  "CHECK-COUNT-BAN_EMBED2-TITLE": "Пользаватель бил забанен",
+  "CHECK-COUNT-BAN_EMBED2-FIELD1-NAME": "Ник пользавателя",
+  "CHECK-COUNT-BAN_EMBED2-FIELD2-NAME": "Причина кика",
+  "CHECK-COUNT-BAN_EMBED2-FILED2-VALUE": "Превишение счётчика нарушений",
+
+  "CHECK-COUNT-NOTIFICATION_EMBED-TITLE": "Пользаватель получил бан",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD1-NAME": "Ник пользавателя",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-NAME": "Время бана",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-VALUE": "1 день",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-NAME": "Причина бана",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-VALUE": "Превишение счётчика предупреждений",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-NAME": "*Напоминание*",
+  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-VALUE": "При превишении счетчика предупреждений будет повишаться счетчик нарушений",
+
+  "CHECK-LINK_EMBED-TITLE": "Нарушаем!",
+  "CHECK-LINK_EMBED-DESCRIPTION": "Ты получаеш предупреждение за (возможно) рекламною сылку",
+  "CHECK-LINK_EMBED-FIELD-NAME": "Ошибочно посчитали что эта ссылка на другой сервер?",
+  "CHECK-LINK_EMBED-FIELD-VALUE": "Если ето правда тогда обратитесь к администратору или к моему разработчику для добавления ее в исключение",
+
+  "CHECK-MESSAGE-WARN_EMBED-TITLE": "Прекрати ругатся!",
+  "CHECK-MESSAGE-WARN_EMBED-DESCRIPTION": "Ты получаешь мут и + предупреждение за нарушение правил сервера",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-TITLE": "Зафиксировано нарушение правил",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART1": "Пользаватель",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART2": "нарушил правила сервера",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-NAME": "Внимание!",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-VALUE": "был замечен нарушитель правил",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD2-NAME": "Канал нарушения",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD3-NAME": "Содержание удалёного сообщения",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD4-NAME": "User ID",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-NAME": "Статус наказания",
+  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-VALUE": "Выданно",
+
+  "CHECK-MESSAGE-NOTIFICATION_EMBED2-TITLE": "Ты получил мут за нарушение правил сервера",
+
+  "CHECK-SPAM-ALERT_MESSAGE": "Замечена подозрительная активность на сервере! \nВозможно ето рейд!",
+
+  "CHECK-SPAM-WARN_EMBED-TITLE": "Прекрати спамить",
+  "CHECK-SPAM-WARN_EMBED-DESCRIPTION": "Ты получаеш мут на 1 час + варн за спам!",
+
+  "CHECK-SPAM-NOTIFICATION_EMBED-TITLE": "Зафиксировано нарушение правил",
+  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART1": "Пользаватель",
+  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART2": "_спамит!_",
+
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-NAME": "Внимание!",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-VALUE": "был замечен нарушитель правил",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD2-NAME": "Канал нарушения",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD3-NAME": "Содержание удалёного сообщения",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD4-NAME": "User ID",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-NAME": "Статус наказания",
+  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-VALUE": "Не выданно(Недостаточно прав)"
+}

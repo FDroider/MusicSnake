@@ -1,6 +1,7 @@
 import asyncio
 import disnake
 from disnake.ext import commands
+from disnake import Localized
 from disnake import TextInputStyle
 from typing import Optional
 from functools import lru_cache
@@ -28,7 +29,7 @@ class ButtonVote(disnake.ui.View):
         await inter.send("Вы проголосовали", ephemeral=True, delete_after=5)
 
         author_id.append(inter.author.id)
-        voting_a.append(inter.author.name)
+        voting_a.append(inter.author.global_name)
 
         self.value = True
 
@@ -44,7 +45,7 @@ class ButtonVote(disnake.ui.View):
         await inter.send("Вы проголосовали", ephemeral=True, delete_after=5)
 
         author_id.append(inter.author.id)
-        voting_d.append(inter.author.name)
+        voting_d.append(inter.author.global_name)
 
         self.value = True
 
@@ -107,15 +108,10 @@ class CreateCommands(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.slash_command(name="vote")
+    @commands.slash_command(name="vote", description=Localized(key="CREATE-VOTE-DESCRIPTIONS"))
     @commands.default_member_permissions(manage_events=True)
-    async def create_voting(self, inter, time: int = None):
-        """Создание голосования
-
-        Parameters
-        ----------
-        time: Время проведения (в минутах)
-        """
+    async def create_voting(self, inter,
+                            time: int = commands.param(default=10, description=Localized(key="CREATE-VOTE-DESCRIPTIONS_PARAMETERS"))):
         await inter.response.send_modal(modal=ModelVote())
 
         await self.bot.wait_until_ready()
@@ -123,16 +119,12 @@ class CreateCommands(commands.Cog):
         if time is False:
             self.time_t = 600
         else:
-            self.time_t = time * 10
+            self.time_t = time * 100
 
-    @commands.slash_command(name="announcements", description="Создание об'явлений")
+    @commands.slash_command(name="announcements", description=Localized(key="CREATE-ANNOUNCEMENT-DESCRIPTIONS"))
     @commands.default_member_permissions(manage_events=True)
-    async def create_announcement(self, inter, channel: disnake.TextChannel):
-        """
-        Parameters
-        ----------
-        channel: Канал в которий хотите отпраить об'явление
-        """
+    async def create_announcement(self, inter,
+                                  channel: disnake.TextChannel = commands.param(Localized(key="CREATE-ANNOUNCEMENT-DESCRIPTIONS_PARAMETERS"))):
         await inter.response.send_modal(modal=ModelAnn())
 
         self.channel = channel
@@ -145,6 +137,8 @@ class CreateCommands(commands.Cog):
             text = inter.text_values['text']
 
             emb = disnake.Embed(title=f"{title}", description=f"@everyone {text}", colour=disnake.Colour.gold())
+
+            emb.set_footer(text=f'{inter.author.display_name}', icon_url=inter.author.display_avatar)
 
             await self.channel.send(embed=emb)
             await inter.send("Success", ephemeral=True, delete_after=2)
