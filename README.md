@@ -1,6 +1,6 @@
 # MusicSnake-bot (install instruction)
 This is the instruction for installing the bot
-## Inst all package
+## Install package
 1. Open cmd (recommended with admin rights)
 2. Install the packages in requirements.txt
 ## Bot install and add server
