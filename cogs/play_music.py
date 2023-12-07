@@ -455,7 +455,7 @@ class MusicCommands(commands.Cog):
         self.FFMPEG_OPTIONS = {"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
                                "options": "-vn"}
 
-    # Функция проверки пожжержки
+    # Функция проверки ссылки
     @staticmethod
     def check_link(url):
         for i in linked_allowed:
