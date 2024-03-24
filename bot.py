@@ -19,21 +19,6 @@ command_sync_flags.sync_commands_debug = True
 bot = commands.Bot(command_prefix=Prefix, intents=intents, command_sync_flags=command_sync_flags)
 
 
-# @bot.listen()
-# async def on_slash_command_error(ctx, error):
-#     if isinstance(commands.NotOwner, error):
-#         print(error)
-#         await ctx.response.send_message("У вас недостаточно прав!", ephemeral=True, delete_after=5)
-#
-#     if isinstance(commands.MissingPermissions, error):
-#         print(error)
-#         await ctx.response.send_message("Недостаточно прав!", ephemeral=True, delete_after=5)
-#
-#     if isinstance(commands.BotMissingPermissions,error):
-#         print(error)
-#         await ctx.response.send_message("Недостаточно прав!", ephemeral=True, delete_after=5)
-
-
 @bot.slash_command(description="Загрузить cog")
 @commands.is_owner()
 async def load_cog(ctx, extension):
