@@ -16,7 +16,7 @@ class OwnerCommands(commands.Cog):
     @commands.slash_command(description=disnake.Localized(key="SHUTDOWN-COMMAND-DESCRIPTIONS"))
     @commands.is_owner()
     async def shutdown(self, ctx):
-        await ctx.response.send_message('Заканчиваю роботу')
+        await ctx.response.send_message('Shutdown')
         exit()
 
 

@@ -4,19 +4,36 @@ import logging
 from dotenv import load_dotenv, find_dotenv
 from disnake.ext import commands
 
-# Создано Droid-Android
-
-logger = logging.getLogger("disnake")
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename="MusicBot.log", encoding="utf-8", mode="w")
-handler.setFormatter(logging.Formatter("%(asctime)s:%(levelname)s:%(name)s: %(message)s"))
-logger.addHandler(handler)
+# Made Droid-Android
 
 Prefix = '!'
 intents = disnake.Intents.all()
 command_sync_flags = commands.CommandSyncFlags.default()
 command_sync_flags.sync_commands_debug = True
-bot = commands.Bot(command_prefix=Prefix, intents=intents, command_sync_flags=command_sync_flags)
+bot = commands.InteractionBot(intents=intents, command_sync_flags=command_sync_flags)
+
+
+async def i18n_emb_message(ctx, title_key, desc_key, title_extra="", desc_extra="",
+                           colour: disnake.Colour = disnake.Colour.default(), response: bool = False,
+                           delete_after: int = ..., ephemeral: bool = False):
+    local_user = str(ctx.locale)
+    if local_user not in ("ru", "uk", "en-US"):
+        local_user = "en-US"
+
+    emb = disnake.Embed(title=f"{bot.i18n.get(key=title_key)[local_user]} {title_extra}" if title_key else None,
+                        description=f"{bot.i18n.get(key=desc_key)[local_user]} {desc_extra}" if desc_key else None,
+                        colour=colour)
+    if response:
+        return await ctx.response.send_message(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
+    return await ctx.followup.send(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
+
+
+async def i18n_message(ctx, key: str, delete_after: int = ..., ephemeral: bool = False):
+    local_user = str(ctx.locale)
+    if local_user not in ("ru", "uk", "en-US"):
+        local_user = "en-US"
+
+    return await ctx.send(bot.i18n.get(key=key)[local_user], delete_after=delete_after, ephemeral=ephemeral)
 
 
 @bot.slash_command(description="Загрузить cog")
@@ -53,8 +70,11 @@ async def load_locale(ctx, file):
     bot.i18n.load(f"locale/{file}")
     await ctx.response.send_message("Локализация загружена", ephemeral=True)
 
+
 for filename in os.listdir("cogs"):
     if filename.endswith(".py"):
+        if filename.startswith("creator"):
+            continue
         bot.load_extension(f"cogs.{filename[:-3]}")
 
 for filename in os.listdir("locale"):

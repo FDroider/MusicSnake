@@ -71,6 +71,8 @@
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Помилка відтворення",
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "Це посилання введено неправильне або воно не підтримується!\nПеревірте правильність написання посилання",
 
+  "PLAY-COMMAND-ADD_LIST": "Додано в чергу",
+
   "PLAY-COMMAND-INFO_EMBED-TITLE": "Зараз грає",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Назва музики:",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Користувач, який її відтворює:",

@@ -6,5 +6,6 @@ MusicBot.log
 .env
 .venv
 cogs/chat-bot.py
+Bot_used.py
 __pycache__
-ffmpegs
+ffmpeg.exe

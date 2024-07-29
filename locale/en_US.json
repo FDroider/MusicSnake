@@ -71,6 +71,8 @@
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Error playing",
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "This link is incorrect or not supported!\nCheck the spelling of the link",
 
+  "PLAY-COMMAND-ADD_LIST": "Added to queue",
+
   "PLAY-COMMAND-INFO_EMBED-TITLE": "Now playing",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Music title:",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "User who plays it:",

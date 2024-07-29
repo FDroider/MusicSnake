@@ -71,6 +71,8 @@
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Ошибка воспроизвидения",
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "Данная ссылка указана неверно или она не поддерживается!\nПроверьте правильность написания ссилкы",
 
+  "PLAY-COMMAND-ADD_LIST": "Добавлено в очередь",
+
   "PLAY-COMMAND-INFO_EMBED-TITLE": "Сейчас играет",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Название музыки:",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Пользователь который ёё воспроизводит:",

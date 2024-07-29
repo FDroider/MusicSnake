@@ -2,6 +2,7 @@ import random
 import disnake
 from disnake import Localized
 from disnake.ext import commands
+from bot import i18n_emb_message
 
 
 class UserCommands(commands.Cog):
@@ -15,30 +16,8 @@ class UserCommands(commands.Cog):
 
         random_number = random.randint(amount1, amount2)
 
-        if str(ctx.locale) == "ru":
-            emb = disnake.Embed(
-                title=f'{self.bot.i18n.get(key="RANDOM-COMMAND_EMBED-TITLE")["ru"]} {random.randint(amount1, amount2)}',
-                colour=disnake.Colour.green())
-
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
-
-            await ctx.response.send_message(embed=emb)
-        elif str(ctx.locale) == "uk" or str(ctx.locale) ==  "ua":
-            emb = disnake.Embed(
-                title=f'{self.bot.i18n.get(key="RANDOM-COMMAND_EMBED-TITLE")["uk"]} {random.randint(amount1, amount2)}',
-                colour=disnake.Colour.green())
-
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
-
-            await ctx.response.send_message(embed=emb)
-        else:
-            emb = disnake.Embed(
-                title=f'{self.bot.i18n.get(key="RANDOM-COMMAND_EMBED-TITLE")["en-US"]} {random.randint(amount1, amount2)}',
-                colour=disnake.Colour.green())
-
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
-
-            await ctx.response.send_message(embed=emb)
+        await i18n_emb_message(ctx, "RANDOM-COMMAND_EMBED-TITLE", False, title_extra={random_number},
+                               colour=disnake.Colour.green())
 
 
 
