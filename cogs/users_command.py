@@ -8,10 +8,6 @@ class UserCommand(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.btn_list = ["/help", "/play", "/report"]
-        # self.db = sqlite3.connect('warn.db')
-        # self.db_ex = sqlite3.connect('except_user.db')
-        # self.cour = self.db.cursor()
-        # self.cour_ex = self.db_ex.cursor()
 
     @commands.Cog.listener()
     async def on_ready(self):

@@ -10,36 +10,41 @@ from bot import i18n_emb_message, i18n_message
 linked_allowed = ("https://www.youtube.com/", "https://youtu.be/", "http://youtu.be/", "https://youtube.com/",
                   "https://m.youtube.com/", "http://m.youtube.com/", "https://www.twitch.tv/")
 
-list_of_songs = []
-author_play_list = []
-author_name_list = []
 
 
 class ControlPanel(disnake.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
         self.value = Optional[bool]
+        self.list_songs = MusicCommands.list_of_songs
+
+    async def user_check(self, ctx):
+        if ctx.user.voice is None:
+            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
+                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION",
+                                   colour=disnake.Color.red(), delete_after=10, ephemeral=True, response=True)
+            return False
+
+        if ctx.author.id != 843213314163081237:
+            if str(ctx.author.id) != MusicCommands._author_id_list[0]:
+                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
+                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION",
+                                       desc_extra=self.list_songs[MusicCommands._author_id_list[0]][0],
+                                       colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
+                return False
+        return True
 
     @disnake.ui.button(label="Pause", style=disnake.ButtonStyle.primary, row=1)
     async def pause(self, button: disnake.ui.Button, ctx):
         vc = ctx.guild.voice_client
 
-        if ctx.user.voice is None:
-            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
-                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION",
-                                   colour=disnake.Color.red(), delete_after=10, ephemeral=True, response=True)
+        if await self.user_check(ctx) is False:
             return
-
-        if ctx.author.id != 843213314163081237:
-            if author_play_list[0] != ctx.author.id:
-                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
-                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION", desc_extra=author_name_list[0],
-                                       colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
-                return
 
         if vc.is_playing():
             vc.pause()
-            await i18n_message(ctx, "PLAY-COMMAND-BUTTON_PAUSE", delete_after=5, ephemeral=True)
+            await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_PAUSE", colour=disnake.Colour.green(),
+                                   delete_after=5, ephemeral=True)
         else:
             await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_PAUSE-ERROR",
                                    colour=disnake.Colour.brand_red(), delete_after=5, ephemeral=True, response=True)
@@ -49,23 +54,14 @@ class ControlPanel(disnake.ui.View):
     async def resume(self, button: disnake.ui.Button, ctx):
         vc = ctx.guild.voice_client
 
-        if ctx.user.voice is None:
-            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
-                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION",
-                                   colour=disnake.Color.red(), delete_after=10, ephemeral=True, response=True)
+        if await self.user_check(ctx) is False:
             return
-
-        if ctx.author.id != 843213314163081237:
-            if author_play_list[0] != ctx.author.id:
-                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
-                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION", desc_extra=author_name_list[0],
-                                       colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
-                return
 
         if vc.is_paused():
             vc.resume()
 
-            await i18n_message(ctx, "PLAY-COMMAND-BUTTON_RESUME", delete_after=5, ephemeral=True)
+            await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_RESUME", colour=disnake.Colour.green(),
+                                   delete_after=5, ephemeral=True)
         else:
             await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_RESUME-ERROR",
                                    colour=disnake.Colour.brand_red(), delete_after=5, ephemeral=True, response=True)
@@ -74,53 +70,35 @@ class ControlPanel(disnake.ui.View):
 
     @disnake.ui.button(label="Replay", style=disnake.ButtonStyle.success, row=1)
     async def replay(self, button: disnake.ui.Button, ctx):
+        _author_id = str(ctx.author.id)
 
-        if ctx.user.voice is None:
-            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
-                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION",
-                                   colour=disnake.Color.red(), delete_after=10, ephemeral=True, response=True)
+        if await self.user_check(ctx) is False:
             return
 
-        if ctx.author.id != 843213314163081237:
-            if author_play_list[0] != ctx.author.id:
-                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
-                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION", desc_extra=author_name_list[0],
-                                       colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
-                return
-
-        list_of_songs.append(list_of_songs[0])
-        author_name_list.append(author_name_list[0])
-        author_play_list.append(author_play_list[0])
-        await i18n_message(ctx, "PLAY-COMMAND-ADD_LIST", delete_after=2)
+        self.list_songs[_author_id][1].insert(0, self.list_songs[_author_id][1][0])
+        MusicCommands._author_id_list.insert(0, MusicCommands._author_id_list[0])
+        await i18n_emb_message(ctx, False, "PLAY-COMMAND-ADD_LIST", colour=disnake.Colour.green(), delete_after=2)
 
     @disnake.ui.button(label="Skip", style=disnake.ButtonStyle.red, row=2)
     async def skip(self, button: disnake.ui.Button, ctx):
         vc = ctx.guild.voice_client
 
-        if ctx.user.voice is None:
-            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
-                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION",
-                                   colour=disnake.Color.red(), delete_after=10, ephemeral=True, response=True)
+        _author_list = MusicCommands._author_id_list
+
+        if await self.user_check(ctx) is False:
             return
 
-        if ctx.author.id != 843213314163081237:
-            if author_play_list[0] != ctx.author.id:
-                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
-                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION", desc_extra=author_name_list[0],
-                                       colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
-                return
-
-        if len(list_of_songs) <= 1:
+        if not len(_author_list) > 1:
             await i18n_emb_message(ctx, "PLAY-COMMAND-BUTTON_SKIP-ERROR-TITLE",
                                    "PLAY-COMMAND-BUTTON_SKIP-ERROR-DESCRIPTION", colour=disnake.Colour.red(),
                                    delete_after=10, ephemeral=True, response=True)
 
         elif vc.is_playing():
             vc.stop()
-            await i18n_message(ctx, "PLAY-COMMAND-BUTTON_SKIP", delete_after=5)
+            await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_SKIP", colour=disnake.Colour.green(), delete_after=5)
         elif vc.is_paused():
             vc.stop()
-            await i18n_message(ctx, "PLAY-COMMAND-BUTTON_SKIP", delete_after=5)
+            await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_SKIP", colour=disnake.Colour.green(), delete_after=5)
 
         self.value = True
 
@@ -128,41 +106,38 @@ class ControlPanel(disnake.ui.View):
     async def stop(self, button: disnake.ui.Button, ctx):
         vc = ctx.guild.voice_client
 
-        if ctx.user.voice is None:
-            await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE",
-                                   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION", colour=disnake.Colour.red(),
-                                   delete_after=5, ephemeral=True, response=True)
+        if await self.user_check(ctx) is False:
             return
 
-        if ctx.author.id != 843213314163081237:
-            if author_play_list[0] != ctx.author.id:
-                await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
-                                       "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION",
-                                       desc_extra=author_name_list[0],
-                                       colour=disnake.Colour.red(), delete_after=5, ephemeral=True, response=True)
-                return
+        _author_id = str(ctx.author.id)
+        _author_list = MusicCommands._author_id_list
 
         if vc.is_playing():
-            list_of_songs.clear()
-            author_play_list.clear()
-            author_name_list.clear()
             vc.stop()
 
         elif vc.is_paused():
-            list_of_songs.clear()
-            author_play_list.clear()
-            author_name_list.clear()
             vc.stop()
 
-        await i18n_message(ctx, "PLAY-COMMAND-BUTTON_STOP", 5)
+        count = _author_list.count(_author_id)
+        for i in range(count):
+            if i == count-1:
+                _author_list[_author_list.index(_author_id)] = None
+            else:
+                _author_list.remove(_author_id)
+        self.list_songs[_author_id][1].clear()
+        self.list_songs[_author_id][1].append(None)
+
+        await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_STOP", colour=disnake.Colour.red(), delete_after=5)
 
         self.value = True
 
 
 class MusicCommands(commands.Cog):
+    list_of_songs: dict = {}
+    _author_id_list: list = []
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.YDL_OPTIONS = {
+        self._YDL_OPTIONS = {
             'format': 'bestaudio/best',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
             'restrictfilenames': True,
@@ -179,8 +154,9 @@ class MusicCommands(commands.Cog):
                 'preferredquality': '5',
             }],
         }
-        self.FFMPEG_OPTIONS = {"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+        self._FFMPEG_OPTIONS = {"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
                                "options": "-vn"}
+        self._clip_duration: int
 
     # Функция проверки ссылки
     @staticmethod
@@ -199,6 +175,7 @@ class MusicCommands(commands.Cog):
         await ctx.response.defer()
 
         local_user = str(ctx.locale)
+        author_id = str(ctx.author.id)
 
         # Проверка что пользаватель находится в войс чате
         if ctx.user.voice is None:
@@ -216,54 +193,56 @@ class MusicCommands(commands.Cog):
         try:
             await ctx.user.voice.channel.connect()
 
-            list_of_songs.append(url)
-            author_play_list.append(ctx.author.id)
-            author_name_list.append(ctx.author.display_name)
+            self.list_of_songs.update({author_id: (ctx.author.global_name, [])})
+            self.list_of_songs[author_id][1].append(url)
+            self._author_id_list.append(author_id)
         except Exception as e:
             print(f"[Log]Already connect or don`t connect to voice\nError message: {e}")
 
-            list_of_songs.append(url)
-            author_play_list.append(ctx.author.id)
-            author_name_list.append(ctx.author.display_name)
+            if not self.list_of_songs.get(author_id):
+                self.list_of_songs.update({author_id: (ctx.author.global_name, [])})
+            self.list_of_songs[author_id][1].append(url)
+            self._author_id_list.append(author_id)
+            await i18n_emb_message(ctx, False, "PLAY-COMMAND-ADD_LIST", colour=disnake.Colour.green(), delete_after=2)
+            return
 
         await i18n_emb_message(ctx, False, "PLAY-COMMAND-ADD_LIST", colour=disnake.Colour.green(), delete_after=2)
 
-        while len(list_of_songs) > 0:
+        while len(self._author_id_list) > 0:
+            i = self._author_id_list[0]
+            while len(self.list_of_songs[i][1]) > 0:
+                with youtube_dl.YoutubeDL(self._YDL_OPTIONS) as ydl:
+                    info = ydl.extract_info(self.list_of_songs.get(i)[1][0], download=False)  # Загрузка видео без скачки
 
-            if len(list_of_songs) > 1:
-                return
+                # URL = ydl.sanitize_info(info)
+                URL = info['url']  # Получение информации о url
 
-            with youtube_dl.YoutubeDL(self.YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(list_of_songs[0], download=False)  # Загрузка видео без скачки
+                source = disnake.FFmpegPCMAudio(URL, executable="ffmpeg", **self._FFMPEG_OPTIONS)
+                vc = ctx.guild.voice_client
+                vc.play(source)  # Прогиеривание музыки
 
-            # URL = ydl.sanitize_info(info)
-            URL = info['url']  # Получение информации о url
+                if local_user not in ("ru", "uk", "en-US"):
+                    local_user = "en-US"
 
-            source = disnake.FFmpegPCMAudio(URL, executable="ffmpeg", **self.FFMPEG_OPTIONS)
-            vc = ctx.guild.voice_client
-            vc.play(source)  # Прогиеривание музыки
+                msg = await ctx.channel.send(
+                    embed=disnake.Embed(title=self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-TITLE")[local_user],
+                                        description=f'{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1")[local_user]} {info["title"]}\n'
+                                                    f'{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2")[local_user]} '
+                                                    f'{self.list_of_songs[i][0]}',
+                                        colour=disnake.Colour.brand_green()),
+                    view=ControlPanel())
 
-            if local_user not in ("ru", "uk", "en-US"):
-                local_user = "en-US"
+                while vc.is_playing() or vc.is_paused():
+                    await asyncio.sleep(1)
 
-            msg = await ctx.channel.send(
-                embed=disnake.Embed(title=self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-TITLE")[local_user],
-                                    description=f'{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1")[local_user]} {info["title"]}\n'
-                                                f'{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2")[local_user]} '
-                                                f'{author_name_list[0]}',
-                                    colour=disnake.Colour.brand_green()),
-                view=ControlPanel())
+                await msg.delete()
 
-            while vc.is_playing() or vc.is_paused():
-                await asyncio.sleep(1)
+                if not len(self.list_of_songs[i][1]) < 1:
+                    self.list_of_songs[i][1].pop(0)
+                    self._author_id_list.pop(0)
+                    print(self._author_id_list)
 
-            await msg.delete()
-
-            if not len(list_of_songs) < 1:
-                list_of_songs.pop(0)
-                author_play_list.pop(0)
-                author_name_list.pop(0)
-
+        self.list_of_songs.clear()
         vc = ctx.guild.voice_client
 
         # Проверка для автоматичнского выхода
