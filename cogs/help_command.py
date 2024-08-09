@@ -11,91 +11,22 @@ class HelpCommands(commands.Cog):
 
     @commands.slash_command(description=Localized(key="HELP-COMMAND-DESCRIPTIONS"))
     async def help(self, ctx: disnake.CommandInteraction):
-        if str(ctx.locale) == "ru":
-            emb = disnake.Embed(title=self.bot.i18n.get(key="HELP-COMMAND_EMBED-TITLE")["ru"], colour=disnake.Colour.light_gray())
+        local_user = str(ctx.locale)
+        if local_user not in ("ru", "uk", "en-US"):
+            local_user= "en-US"
 
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
+        emb = disnake.Embed(title=self.bot.i18n.get(key="HELP-COMMAND_EMBED-TITLE")[local_user], colour=disnake.Colour.light_gray())
 
-            emb.add_field(name='{}hello/hi'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED1-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}play'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED2-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}volume'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED3-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}leave'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED4-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}random'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED5-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}chat'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED6-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}report'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED7-VALUE")["ru"],
-                          inline=False)
-            emb.add_field(name='{}my_warns'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED8-VALUE")["ru"], inline=False)
+        emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
 
-            await ctx.response.send_message(embed=emb)
-        elif str(ctx.locale) == "uk" or str(ctx.locale) == "ua":
-            emb = disnake.Embed(title=self.bot.i18n.get(key="HELP-COMMAND_EMBED-TITLE")["uk"],
-                                colour=disnake.Colour.light_gray())
+        emb.add_field(name='{}play'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED2-VALUE")[local_user],
+                      inline=False)
+        emb.add_field(name='{}random'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED5-VALUE")[local_user],
+                      inline=False)
+        emb.add_field(name='{}report'.format(prefix), value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED7-VALUE")[local_user],
+                      inline=False)
 
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
-
-            emb.add_field(name='{}hello/hi'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED1-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}play'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED2-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}volume'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED3-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}leave'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED4-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}random'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED5-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}chat'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED6-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}report'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED7-VALUE")["uk"],
-                          inline=False)
-            emb.add_field(name='{}my_warns'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED8-VALUE")["uk"], inline=False)
-
-            await ctx.response.send_message(embed=emb)
-        else:
-            emb = disnake.Embed(title=self.bot.i18n.get(key="HELP-COMMAND_EMBED-TITLE")["en-US"],
-                                colour=disnake.Colour.light_gray())
-
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.display_avatar)
-
-            emb.add_field(name='{}hello/hi'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED1-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}play'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED2-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}volume'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED3-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}leave'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED4-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}random'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED5-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}chat'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED6-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}report'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED7-VALUE")["en-US"],
-                          inline=False)
-            emb.add_field(name='{}my_warns'.format(prefix),
-                          value=self.bot.i18n.get(key="HELP-COMMAND_EMBED-FILED8-VALUE")["en-US"], inline=False)
-
-            await ctx.response.send_message(embed=emb)
+        await ctx.response.send_message(embed=emb)
 
 
 def setup(bot):

@@ -73,9 +73,9 @@
 
   "PLAY-COMMAND-ADD_LIST": "Added to queue",
 
-  "PLAY-COMMAND-INFO_EMBED-TITLE": "Now playing",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Music title:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "User who plays it:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Creator:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Duration:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3": "Playlist count:",
 
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Error",
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "You are not connected to voice chat",
@@ -107,7 +107,7 @@
   "REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE": "Write what problem occurred and after what actions",
 
   "REPORT-COMMAND_EMBED-TITLE": "Send",
-  "REPORT-COMMAND_EMBED-DESCRIPTION": "your report has been sent to my developer for review and final decision",
+  "REPORT-COMMAND_EMBED-DESCRIPTION": "Your report has been sent for review",
 
   "REPORT-COMMAND_EMBED-FIELD-NAME": "",
   "REPORT-COMMAND_EMBED-FIELD-VALUE": "",

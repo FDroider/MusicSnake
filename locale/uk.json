@@ -73,9 +73,9 @@
 
   "PLAY-COMMAND-ADD_LIST": "Додано в чергу",
 
-  "PLAY-COMMAND-INFO_EMBED-TITLE": "Зараз грає",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Назва музики:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Користувач, який її відтворює:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Творець:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Тривалість:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3": "Кількість роликів в списку відтворень:",
 
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Помилка",
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "Ви не можете керувати програвачем поки не пыдключены до войс каналу",
@@ -107,7 +107,7 @@
   "REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE": "Напишіть, яка проблема виникла і після яких дій",
 
   "REPORT-COMMAND_EMBED-TITLE": "Відправлено",
-  "REPORT-COMMAND_EMBED-DESCRIPTION": "ваш репорт надіслано моєму розробнику на розгляд та наслідкове рішення",
+  "REPORT-COMMAND_EMBED-DESCRIPTION": "Ваш репорт надіслано на огляд",
 
   "REPORT-COMMAND_EMBED-FIELD-NAME": "",
   "REPORT-COMMAND_EMBED-FIELD-VALUE": "",

@@ -11,16 +11,20 @@ command_sync_flags.sync_commands_debug = False
 bot = commands.InteractionBot(intents=intents, command_sync_flags=command_sync_flags)
 
 
-async def i18n_emb_message(ctx, title_key, desc_key, title_extra="", desc_extra="",
+async def i18n_emb_message(ctx, title_key, desc_key, title_extra="", desc_extra="", author_text=None, author_url=None,
+                           author_icon=None, footer_text=None, footer_icon=None,
                            colour: disnake.Colour = disnake.Colour.default(), response: bool = False,
                            delete_after: int = ..., ephemeral: bool = False):
     local_user = str(ctx.locale)
+
     if local_user not in ("ru", "uk", "en-US"):
         local_user = "en-US"
 
     emb = disnake.Embed(title=f"{bot.i18n.get(key=title_key)[local_user]} {title_extra}" if title_key else None,
                         description=f"{bot.i18n.get(key=desc_key)[local_user]} {desc_extra}" if desc_key else None,
                         colour=colour)
+    emb.set_author(name=author_text if author_text else "", url=author_url, icon_url=author_icon)
+    emb.set_footer(text=footer_text if footer_text else "", icon_url=footer_icon)
     if response:
         return await ctx.response.send_message(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
     return await ctx.followup.send(embed=emb, delete_after=delete_after, ephemeral=ephemeral)

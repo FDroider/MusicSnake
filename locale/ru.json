@@ -73,9 +73,9 @@
 
   "PLAY-COMMAND-ADD_LIST": "Добавлено в очередь",
 
-  "PLAY-COMMAND-INFO_EMBED-TITLE": "Сейчас играет",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Название музыки:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Пользователь который ёё воспроизводит:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Создатель:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Продолжительность:",
+  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3": "Количество видео в плейлисте:",
 
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Ошибка",
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "Вы не подключены к войс чату",
@@ -107,7 +107,7 @@
   "REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE": "Напишите, какая проблема возникла и после каких действий",
 
   "REPORT-COMMAND_EMBED-TITLE": "Отправлено",
-  "REPORT-COMMAND_EMBED-DESCRIPTION": "ваш репорт отправлен моему разработчику на рассмотрение и последственое решение",
+  "REPORT-COMMAND_EMBED-DESCRIPTION": "Dаш репорт отправлен на рассмотрение",
 
   "REPORT-COMMAND_EMBED-FIELD-NAME": "",
   "REPORT-COMMAND_EMBED-FIELD-VALUE": "",

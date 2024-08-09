@@ -1,8 +1,43 @@
 import disnake
 from disnake.ext import commands
-from disnake import Localized
+from disnake import Localized, ModalInteraction
 from bot import i18n_emb_message
+from disnake import TextInputStyle
 
+class ModelVote(disnake.ui.Modal):
+    def __init__(self, bot: commands.Bot, error):
+        self.bot = bot
+        self.error_message = error
+        components = [
+            disnake.ui.TextInput(
+                label="Why appear error?",
+                placeholder="Enter what to do before appear error",
+                custom_id="question",
+                style=TextInputStyle.long,
+                max_length=3000
+            )
+        ]
+        super().__init__(
+            title="Bug report",
+            components=components,
+        )
+
+    async def callback(self, inter: ModalInteraction, /):
+        emb = disnake.Embed(title='Bug report', description=None, colour=disnake.Colour.red())
+
+        emb.add_field(name="Error code", value=f"```{self.error_message}```")
+
+        emb.set_footer(text=f'Report from {inter.author.global_name}',
+                       icon_url=inter.author.avatar)
+        message = []
+        for v in inter.text_values.values():
+            message.append(v)
+        emb.description = " ".join(message)
+        member = disnake.utils.get(self.bot.get_all_members(), id=843213314163081237)
+        await member.send(embed=emb)
+        await i18n_emb_message(inter, "REPORT-COMMAND_EMBED-TITLE", "REPORT-COMMAND_EMBED-DESCRIPTION",
+                               title_extra=":white_check_mark:", colour=disnake.Colour.green(), response=True,
+                               ephemeral=True)
 
 class UserCommand(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -20,15 +55,23 @@ class UserCommand(commands.Cog):
     @commands.Cog.listener()
     async def on_slash_command_error(self, ctx, error):
         print(error)
+        view = disnake.ui.View()
+        btn_send = disnake.ui.Button(label="Send bug report")
 
-        if isinstance(error, commands.CommandNotFound):
-            emb = disnake.Embed(title='Command not found!',
-                                description=f'```{ctx.author.content}``` command enter wrong. '
-                                            f'If you forget commands, enter ```/help```', colour=disnake.Colour.red())
+        async def callback(ctx):
+            await ctx.response.send_modal(modal=ModelVote(self.bot, error))
+            await self.bot.wait_until_ready()
 
-            emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar)
+        btn_send.callback = callback
 
-            await ctx.send(embed=emb)
+        view.add_item(btn_send)
+
+        emb = disnake.Embed(title='Error',
+                            description=f'Error message:\n```{error}```', colour=disnake.Colour.red())
+
+        emb.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar)
+
+        await ctx.send(embed=emb, ephemeral=True, view=view)
 
     @commands.slash_command(description=Localized(key="REPORT-COMMAND-DESCRIPTIONS"))
     @commands.cooldown(1, 1)
@@ -48,6 +91,7 @@ class UserCommand(commands.Cog):
         await i18n_emb_message(ctx, "REPORT-COMMAND_EMBED-TITLE", "REPORT-COMMAND_EMBED-DESCRIPTION",
                                title_extra=":white_check_mark:", colour=disnake.Colour.green(), response=True,
                                ephemeral=True)
+
 
 
 def setup(bot):
