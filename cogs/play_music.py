@@ -140,7 +140,7 @@ class MusicCommands(commands.Cog):
             'restrictfilenames': True,
             'preferfreeformats': True,
             'noplaylist': True,
-            'quiet': True,
+            'quiet': False,
             'nocheckcertificate': True,
             'ignoreerrors': False,
             'logtostderr': False,
@@ -189,6 +189,9 @@ class MusicCommands(commands.Cog):
         local_user = str(ctx.locale)
         author_id = str(ctx.author.id)
 
+        if local_user not in ("ru", "uk", "en-US"):
+            local_user = "en-US"
+
         try:
             if ctx.user.voice is None:
                 await i18n_emb_message(ctx, "PLAY-COMMAND-VOICE-ERROR_EMBED-TITLE",
@@ -205,6 +208,18 @@ class MusicCommands(commands.Cog):
             return
 
         self._YDL_OPTIONS["noplaylist"] = not playlist
+        if playlist:
+            start = []
+            for i in url[::-1]:
+                try:
+                    int(i)
+                except ValueError:
+                    break
+                start.insert(0, i)
+            if len(start) > 0:
+                start = "".join(start)
+                self._YDL_OPTIONS["playlistitems"] = f"{start}:{int(start)+15}"
+                self._YDL_OPTIONS["playlistend"] = "15"
 
         if not self.list_of_songs.get(author_id):
             self.list_of_songs.update({author_id: (ctx.author.global_name, ctx.author.display_avatar, [])})
@@ -224,36 +239,33 @@ class MusicCommands(commands.Cog):
                 self._author_id_list.pop(0)
                 continue
             while len(self.list_of_songs[i][2]) > 0:
-                await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_SKIP", colour=disnake.Colour.green(),
-                                       delete_after=4)
-
-                with youtube_dl.YoutubeDL(self._YDL_OPTIONS) as ydl:
-                    info = ydl.extract_info(self.list_of_songs.get(i)[2][0], download=False)
-
-                URL = None
-                if info.get("playlist_count"):
-                    self._playlist_info.append((i, []))
-                    self._author_id_list.pop()
-                    current_video = False
-                    for v in info["entries"]:
-                        if not current_video:
-                            if self.list_of_songs[i][2][-1].startswith(v["original_url"]):
-                                self.list_of_songs[i][2].pop()
-                                self._playlist_info[-1][1].append(v)
-                                self._author_id_list.append(i)
-                                self.list_of_songs[i][2].append(v["original_url"])
-                                current_video = True
-                                URL = v["url"]
-                            continue
-                        self._playlist_info[-1][1].append(v)
-                        self._author_id_list.append(i)
-                        self.list_of_songs[i][2].append(v["original_url"])
-                else:
-                    URL = info["url"]
+                emb = disnake.Embed(title=None, description=self.bot.i18n.get("PLAY-COMMAND-BUTTON_SKIP")[local_user],
+                                    colour=disnake.Colour.green())
+                msg = await ctx.channel.send(embed=emb)
 
                 if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i:
                     info = self._playlist_info[self.get_index(i, self._playlist_info)][1]
                     info = info[self.get_index(self.list_of_songs.get(i)[2][0], info, "original_url")]
+                else:
+                    with youtube_dl.YoutubeDL(self._YDL_OPTIONS) as ydl:
+                        info = ydl.extract_info(self.list_of_songs.get(i)[2][0], download=False)
+
+                await msg.delete()
+
+                URL = None
+                if info.get("entries") and len(info.get("entries")) > 1:
+                    self._playlist_info.append((i, []))
+                    self._author_id_list.pop()
+                    for v in info["entries"]:
+                        if self.list_of_songs[i][2][-1].startswith(v["original_url"]):
+                            self.list_of_songs[i][2].pop()
+                            URL = v["url"]
+                        self._playlist_info[-1][1].append(v)
+                        self._author_id_list.append(i)
+                        self.list_of_songs[i][2].append(v["original_url"])
+                    info = info["entries"][0]
+                else:
+                    URL = info["url"]
 
                 source = disnake.FFmpegPCMAudio(URL, executable="ffmpeg", **self._FFMPEG_OPTIONS)
                 vc = ctx.guild.voice_client
@@ -264,15 +276,12 @@ class MusicCommands(commands.Cog):
 
                 vc.play(source)
 
-                if local_user not in ("ru", "uk", "en-US"):
-                    local_user = "en-US"
-
                 emb = disnake.Embed(title=None,
                                     description=f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1")[local_user]} "
                                                 f"{info["creator"] if info.get("creator") else None}\n"
                                                 f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2")[local_user]} "
                                                 f"{timedelta(seconds=info["duration"] if info.get("duration") else 0)}"
-                                                f"{f'\n{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3")[local_user]} {info["playlist_count"]}' 
+                                                f"{f'\n{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3")[local_user]} {info["__last_playlist_index"]}' 
                                                     if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i else ""}",
                                     colour=disnake.Colour.brand_green())
                 emb.set_author(name=f"{info["title"]} {f" - Playlist - {info["playlist_index"]}" if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i else ""}",
@@ -299,7 +308,6 @@ class MusicCommands(commands.Cog):
                             self._playlist_info[self.get_index(i, self._playlist_info)][1].pop(0)
                         else:
                             self._playlist_info.pop(0)
-
 
         self.list_of_songs.clear()
 

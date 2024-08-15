@@ -33,7 +33,7 @@ class ModelVote(disnake.ui.Modal):
         for v in inter.text_values.values():
             message.append(v)
         emb.description = " ".join(message)
-        member = disnake.utils.get(self.bot.get_all_members(), id=843213314163081237)
+        member = self.bot.get_user(843213314163081237)
         await member.send(embed=emb)
         await i18n_emb_message(inter, "REPORT-COMMAND_EMBED-TITLE", "REPORT-COMMAND_EMBED-DESCRIPTION",
                                title_extra=":white_check_mark:", colour=disnake.Colour.green(), response=True,
@@ -79,7 +79,7 @@ class UserCommand(commands.Cog):
                      message: str = commands.param(
                          description=Localized(key="REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE"))):
 
-        member = disnake.utils.get(self.bot.get_all_members(), id=843213314163081237)
+        member = self.bot.get_user(843213314163081237)
 
         emb = disnake.Embed(title='Report', description=f'{message}', colour=disnake.Colour.red())
 
