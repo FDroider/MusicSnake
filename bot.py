@@ -28,6 +28,8 @@ async def i18n_emb_message(ctx, title_key, desc_key, title_extra="", desc_extra=
                         colour=colour)
     emb.set_author(name=author_text if author_text else "", url=author_url, icon_url=author_icon)
     emb.set_footer(text=footer_text if footer_text else "", icon_url=footer_icon)
+    if delete_after == Ellipsis:
+        delete_after = 0
     if response:
         return await ctx.response.send_message(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
     return await ctx.followup.send(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
