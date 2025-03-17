@@ -71,6 +71,9 @@
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Ошибка воспроизвидения",
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "Данная ссылка указана неверно или она не поддерживается!\nПроверьте правильность написания ссилкы",
 
+  "PLAY-COMMAND-FFMPEG-ERROR_EMBED-TITLE": "Ошибка воспроизвидения",
+  "PLAY-COMMAND-FFMPEG-ERROR_EMBED-DESCRIPTION": "Попытка загрузить другой формат",
+
   "PLAY-COMMAND-ADD_LIST": "Добавлено в очередь",
 
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Создатель:",
