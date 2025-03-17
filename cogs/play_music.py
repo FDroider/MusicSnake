@@ -16,6 +16,8 @@ from typing import Optional
 from bot import i18n_emb_message
 from threading import Thread
 
+from cogs.creator import author_id
+
 linked_allowed = ["https://www.youtube.com/", "https://youtu.be/", "http://youtu.be/", "https://youtube.com/", "https://music.youtube.com",
                   "https://m.youtube.com/", "http://m.youtube.com/", "https://www.twitch.tv/", "https://soundcloud.com/",
                   "https://on.soundcloud.com/", "https://drive.google.com/", "https://open.spotify.com/"]
@@ -264,19 +266,15 @@ class MusicCommands(commands.Cog):
             self.list_of_songs[author_id][2].append(self.extract_name_track(tracks[0]))
             self._author_id_list.append(author_id)
         elif len(tracks) < playlist_count:
-            # self._playlist_info.append([author_id, []])
             for i in range(len(tracks)):
                 track_info = self.extract_name_track(tracks[i])
                 self._author_id_list.append(author_id)
                 self.list_of_songs[author_id][2].append(track_info)
-                # self._playlist_info[-1][1].append(track_info)
         else:
-            # self._playlist_info.append([author_id, []])
             for i in range(playlist_count):
                 track_info = self.extract_name_track(tracks.pop(0))
                 self._author_id_list.append(author_id)
                 self.list_of_songs[author_id][2].append(track_info)
-                # self._playlist_info[-1][1].append(track_info)
 
     def extract_name_track(self, track_info):
         performers = ""
@@ -291,7 +289,9 @@ class MusicCommands(commands.Cog):
         videos_search = videos_search.result()["result"][0]["link"]
         return videos_search
 
-    async def download_video(self):
+    async def download_video(self, options, song):
+        with youtube_dl.YoutubeDL(options) as ydl:
+            return ydl.extract_info(song, download=False)
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
@@ -363,13 +363,11 @@ class MusicCommands(commands.Cog):
                 if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i:
                     info = self._playlist_info[self.get_index(i, self._playlist_info)][1]
                     if len(info) == 0:
-                        with youtube_dl.YoutubeDL(self._YDL_OPTIONS) as ydl:
-                            info = ydl.extract_info(self.list_of_songs.get(i)[2][0], download=False)
+                        info = await self.download_video(self._YDL_OPTIONS, self.list_of_songs.get(i)[2][0])
                     else:
                         info = info[self.get_index(self.list_of_songs.get(i)[2][0], info, "original_url")]
                 else:
-                    with youtube_dl.YoutubeDL(self._YDL_OPTIONS) as ydl:
-                        info = ydl.extract_info(self.list_of_songs.get(i)[2][0], download=False)
+                    info = await self.download_video(self._YDL_OPTIONS, self.list_of_songs.get(i)[2][0])
 
                 await msg.delete()
 
@@ -394,6 +392,15 @@ class MusicCommands(commands.Cog):
                         URL = info["url"]
                     else:
                         URL = info["url"]
+
+                if URL.startswith("https://manifest.googlevideo.com/"):
+                    msg_info = await i18n_emb_message(ctx, "PLAY-COMMAND-FFMPEG-ERROR_EMBED-TITLE",
+                                                      "PLAY-COMMAND-FFMPEG-ERROR_EMBED-DESCRIPTION", ephemeral=True)
+                    new_opts = self._YDL_OPTIONS.copy()
+                    new_opts["format"] = "best"
+                    info = await self.download_video(new_opts, self.list_of_songs.get(i)[2][0])
+                    URL = info["url"]
+                    await msg_info.delete()
 
                 vc = await self.play_audio(ctx, URL)
 
@@ -442,7 +449,9 @@ class MusicCommands(commands.Cog):
             self._playlist_info[0][1].pop(0)
         else:
             self._playlist_info[0].pop(0)
-        self.list_of_songs[self._author_id_list.pop(0)].pop(0)
+        author_id = self._author_id_list.pop(0)
+        if len(self.list_of_songs[author_id][2]):
+            self.list_of_songs[author_id][2].pop(0)
         if len(self.list_of_songs) > 0:
             await self.restart_play_command(ctx)
         print(error)
