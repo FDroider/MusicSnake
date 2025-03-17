@@ -86,7 +86,7 @@
   "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Music is no longer playing or has ended",
 
   "PLAY-COMMAND-BUTTON_RESUME": "Continue playing",
-  "PLAY-COMMAND-BUTTON_RESUME-ERROR": "Music is already playing",
+  "PLAY-COMMAND-BUTTON_RESUME-ERROR": "Music already playing",
 
   "PLAY-COMMAND-BUTTON_SKIP": "Uploading the next music",
   "PLAY-COMMAND-BUTTON_SKIP-ERROR-TITLE": "Error",
