@@ -4,6 +4,7 @@ from disnake import Localized, ModalInteraction
 from bot import i18n_emb_message
 from disnake import TextInputStyle
 
+
 class ModelVote(disnake.ui.Modal):
     def __init__(self, bot: commands.Bot, error):
         self.bot = bot
@@ -33,11 +34,13 @@ class ModelVote(disnake.ui.Modal):
         for v in inter.text_values.values():
             message.append(v)
         emb.description = " ".join(message)
+        # member = await self.bot.get_user(843213314163081237).create_dm()
         member = self.bot.get_user(843213314163081237)
         await member.send(embed=emb)
         await i18n_emb_message(inter, "REPORT-COMMAND_EMBED-TITLE", "REPORT-COMMAND_EMBED-DESCRIPTION",
                                title_extra=":white_check_mark:", colour=disnake.Colour.green(), response=True,
                                ephemeral=True)
+
 
 class UserCommand(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -78,7 +81,6 @@ class UserCommand(commands.Cog):
     async def report(self, ctx,
                      message: str = commands.param(
                          description=Localized(key="REPORT-COMMAND-DESCRIPTIONS_PARAMETERS-MESSAGE"))):
-
         member = self.bot.get_user(843213314163081237)
 
         emb = disnake.Embed(title='Report', description=f'{message}', colour=disnake.Colour.red())
@@ -91,7 +93,6 @@ class UserCommand(commands.Cog):
         await i18n_emb_message(ctx, "REPORT-COMMAND_EMBED-TITLE", "REPORT-COMMAND_EMBED-DESCRIPTION",
                                title_extra=":white_check_mark:", colour=disnake.Colour.green(), response=True,
                                ephemeral=True)
-
 
 
 def setup(bot):

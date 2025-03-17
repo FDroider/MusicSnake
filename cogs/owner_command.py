@@ -19,6 +19,11 @@ class OwnerCommands(commands.Cog):
         await ctx.response.send_message('Shutdown')
         exit()
 
+    # @commands.slash_command(name="restart", description="Restart bot")
+    # @commands.is_owner()
+    # async def restart(self, ctx):
+    #     await ctx.response.send_message("Restarting", delete_after=5)
+    #     exit()
 
 def setup(bot):
     bot.add_cog(OwnerCommands(bot))

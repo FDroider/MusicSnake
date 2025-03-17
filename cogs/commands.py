@@ -14,9 +14,10 @@ class UserCommands(commands.Cog):
                    amount1: int = commands.param(description=Localized(key="RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT1")),
                    amount2: int = commands.param(description=Localized(key="RANDOM-COMMAND-DESCRIPTIONS_PARAMETERS-AMOUNT2"))):
 
+        await ctx.response.defer()
         random_number = random.randint(amount1, amount2)
 
-        await i18n_emb_message(ctx, "RANDOM-COMMAND_EMBED-TITLE", False, title_extra={random_number},
+        await i18n_emb_message(ctx, "RANDOM-COMMAND_EMBED-TITLE", False, title_extra=random_number,
                                colour=disnake.Colour.green())
 
 

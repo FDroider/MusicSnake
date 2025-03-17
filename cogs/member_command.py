@@ -18,10 +18,10 @@ class AdminCommands(commands.Cog):
 
         await ctx.response.defer()
 
-        await ctx.channel.purge(limit=amount)
-
         await i18n_emb_message(ctx, "CLEAR-COMMAND_EMBED-TITLE", "CLEAR-COMMAND_EMBED-DESCRIPTION",
                                desc_extra=amount, colour=disnake.Colour.green(), delete_after=10)
+
+        await ctx.channel.purge(limit=amount+1)
 
 
 def setup(bot):
