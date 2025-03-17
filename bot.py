@@ -3,7 +3,10 @@ import disnake
 from dotenv import load_dotenv, find_dotenv
 from disnake.ext import commands
 
-# Made Droid-Android
+# Made FDroider
+
+# Repair send bug report
+#
 
 intents = disnake.Intents.all()
 command_sync_flags = commands.CommandSyncFlags.default()
