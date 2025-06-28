@@ -4,8 +4,8 @@ import dotenv
 import os
 import spotipy
 import yt_dlp as youtube_dl
-from spotipy import SpotifyException
-from spotipy.oauth2 import SpotifyOAuth, SpotifyClientCredentials
+from yt_dlp.utils._utils import DownloadError, ExtractorError
+from spotipy.oauth2 import SpotifyClientCredentials
 from youtubesearchpython import VideosSearch
 from disnake.ext import commands
 from disnake.errors import ClientException
@@ -14,9 +14,6 @@ from asyncio import sleep
 from datetime import timedelta
 from typing import Optional
 from bot import i18n_emb_message
-from threading import Thread
-
-from cogs.creator import author_id
 
 linked_allowed = ["https://www.youtube.com/", "https://youtu.be/", "http://youtu.be/", "https://youtube.com/", "https://music.youtube.com",
                   "https://m.youtube.com/", "http://m.youtube.com/", "https://www.twitch.tv/", "https://soundcloud.com/",
@@ -27,7 +24,7 @@ class ControlPanel(disnake.ui.View):
         super().__init__(timeout=None)
         self.value = Optional[bool]
         self.list_songs = MusicCommands.list_of_songs
-        self._user_id = MusicCommands._author_id_list
+        self._user_id = MusicCommands.author_id_list
 
     async def user_check(self, ctx):
         if ctx.user.voice is None:
@@ -37,10 +34,10 @@ class ControlPanel(disnake.ui.View):
             return False
 
         if ctx.author.id != 843213314163081237:
-            if str(ctx.author.id) != MusicCommands._author_id_list[0]:
+            if str(ctx.author.id) != self._user_id[0]:
                 await i18n_emb_message(ctx, "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE",
                                        "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION",
-                                       desc_extra=self.list_songs[MusicCommands._author_id_list[0]][0],
+                                       desc_extra=self.list_songs[self._user_id[0]]["name"],
                                        colour=disnake.Colour.red(), delete_after=10, ephemeral=True, response=True)
                 return False
         return True
@@ -81,13 +78,17 @@ class ControlPanel(disnake.ui.View):
 
     @disnake.ui.button(label="Replay", style=disnake.ButtonStyle.success, row=1)
     async def replay(self, button: disnake.ui.Button, ctx):
-        _author_id = self._user_id[0]
+        user_songs = self.list_songs[self._user_id[0]]
 
         if await self.user_check(ctx) is False:
             return
 
-        self.list_songs[_author_id][2].insert(0, self.list_songs[_author_id][2][0])
+        if isinstance(user_songs["urls"][0], list):
+            user_songs["urls"][0].insert(0, user_songs["urls"][0][0])
+        else:
+            user_songs["urls"].insert(0, user_songs["urls"][0])
         self._user_id.insert(0, self._user_id[0])
+
         await i18n_emb_message(ctx, False, "PLAY-COMMAND-ADD_LIST", colour=disnake.Colour.green(), delete_after=2,
                                response=True)
 
@@ -115,18 +116,15 @@ class ControlPanel(disnake.ui.View):
         if await self.user_check(ctx) is False:
             return
 
-        _author_id = self._user_id[0]
+        author_id = self._user_id[0]
 
         if vc.is_playing() or vc.is_paused():
             vc.stop()
 
-        count = self._user_id.count(_author_id)
-        for i in range(count):
-            self._user_id[self._user_id.index(_author_id)] = None
-        for i in MusicCommands._playlist_info:
-            if i[0] == _author_id:
-                MusicCommands._playlist_info.remove(i)
-        self.list_songs[_author_id][2].clear()
+        for i in range(self._user_id.count(author_id)):
+            self._user_id[self._user_id.index(author_id)] = None
+
+        self.list_songs[author_id]["urls"].clear()
 
         await i18n_emb_message(ctx, False, "PLAY-COMMAND-BUTTON_STOP", colour=disnake.Colour.red(), delete_after=5,
                                response=True)
@@ -136,8 +134,7 @@ class ControlPanel(disnake.ui.View):
 
 class MusicCommands(commands.Cog):
     list_of_songs: dict = {}
-    _author_id_list: list = []
-    _playlist_info = []
+    author_id_list: list = []
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -148,7 +145,7 @@ class MusicCommands(commands.Cog):
         self.ctx = None
         self.playlist = 0
         self._YDL_OPTIONS = {
-            'format': 'bestaudio.2/bestaudio/best',
+            'format': '234/140/233',
             'outtmpl': '%(extractor)s-%(id)s-%(title)s.%(ext)s',
             'restrictfilenames': True,
             'preferfreeformats': True,
@@ -190,22 +187,6 @@ class MusicCommands(commands.Cog):
                         return info.index(i)
         return None
 
-    def set_settings_playlist(self, url, count):
-        self._YDL_OPTIONS["noplaylist"] = not (count > 1)
-        self._YDL_OPTIONS["playlistend"] = "1"
-        if count > 1:
-            start = []
-            for i in url[::-1]:
-                try:
-                    int(i)
-                except ValueError:
-                    break
-                start.insert(0, i)
-            if len(start) > 0:
-                start = "".join(start)
-                self._YDL_OPTIONS["playlistitems"] = f"{start}:{int(start) + count}"
-                self._YDL_OPTIONS["playlistend"] = count
-
     async def play_audio(self, ctx, url):
         source = disnake.FFmpegPCMAudio(url, executable="ffmpeg", **self._FFMPEG_OPTIONS)
 
@@ -224,28 +205,9 @@ class MusicCommands(commands.Cog):
         return vc
 
     async def restart_play_command(self, ctx):
-        await self.play(ctx, url=self.list_of_songs[0][2].pop(0), playlist_count=0)
+        await self.play(ctx, url=self.list_of_songs[self.author_id_list[0]]["urls"].pop(0), playlist_count=0)
 
-    async def check_current_voice(self, member):
-        vc = member.guild.voice_client
-        await asyncio.sleep(30)
-        if len(self._author_id_list) == 0:
-            return
-        if member.voice and member.voice.channel.id == self.list_of_songs[self._author_id_list[0]][-1]:
-            return
-
-        vc.stop()
-
-        author_id = self._author_id_list[0]
-        self.list_of_songs[author_id][2].clear()
-        count = self._author_id_list.count(author_id)
-        for i in range(count):
-            self._author_id_list[self._author_id_list.index(author_id)] = None
-        for i in self._playlist_info:
-            if i[0] == author_id:
-                self._playlist_info.remove(i)
-
-    def spotify_track(self, url, playlist_count, author_id):
+    def spotify_track(self, url, playlist_count, author_id) -> bool:
         if url.startswith("https://open.spotify.com/album"):
             self.extract_tracks(self.spotify.album_tracks(url)["items"], playlist_count, author_id)
             return True
@@ -253,8 +215,8 @@ class MusicCommands(commands.Cog):
             self.extract_tracks(self.spotify.playlist_items(url)["items"], playlist_count, author_id)
             return True
         elif url.startswith("https://open.spotify.com/"):
-            self.list_of_songs[author_id][2].append(self.extract_name_track(self.spotify.track(url)))
-            self._author_id_list.append(author_id)
+            self.list_of_songs[author_id]["urls"].append(self.extract_video_info(self.spotify.track(url)))
+            self.author_id_list.append(author_id)
             return True
         return False
 
@@ -263,20 +225,20 @@ class MusicCommands(commands.Cog):
             for i in range(len(tracks)):
                 tracks[i] = tracks[i]["track"]
         if playlist_count == 0 or playlist_count == 1:
-            self.list_of_songs[author_id][2].append(self.extract_name_track(tracks[0]))
-            self._author_id_list.append(author_id)
+            self.list_of_songs[author_id]["urls"].append(self.extract_video_info(tracks[0]))
+            self.author_id_list.append(author_id)
         elif len(tracks) < playlist_count:
             for i in range(len(tracks)):
-                track_info = self.extract_name_track(tracks[i])
-                self._author_id_list.append(author_id)
-                self.list_of_songs[author_id][2].append(track_info)
+                track_info = self.extract_video_info(tracks[i])
+                self.list_of_songs[author_id]["urls"].append((track_info, (i+1, len(tracks))))
+                self.author_id_list.append(author_id)
         else:
             for i in range(playlist_count):
-                track_info = self.extract_name_track(tracks.pop(0))
-                self._author_id_list.append(author_id)
-                self.list_of_songs[author_id][2].append(track_info)
+                track_info = self.extract_video_info(tracks.pop(0))
+                self.list_of_songs[author_id]["urls"].append((track_info, (i+1, playlist_count)))
+                self.author_id_list.append(author_id)
 
-    def extract_name_track(self, track_info):
+    def extract_video_info(self, track_info) -> str:
         performers = ""
         music = track_info["name"]
         for names in track_info["artists"]:
@@ -284,23 +246,38 @@ class MusicCommands(commands.Cog):
         performers = performers.rstrip(", ")
         return self.search_video(music, performers)
 
-    def search_video(self, music, performers):
+    def search_video(self, music, performers) -> str:
         videos_search = VideosSearch(f"{performers} - {music}", limit=1)
         videos_search = videos_search.result()["result"][0]["link"]
         return videos_search
 
-    async def download_video(self, options, song):
+    async def download_video(self, options, song) -> dict:
         with youtube_dl.YoutubeDL(options) as ydl:
             return ydl.extract_info(song, download=False)
 
+    async def check_current_voice(self, member):
+        vc = member.guild.voice_client
+        await asyncio.sleep(120)
+
+        if member.voice and member.voice.channel.id == disnake.utils.get(self.bot.voice_clients, guild=member.guild):
+            return
+
+        vc.stop()
+
+        author_id = self.author_id_list[0]
+        self.list_of_songs[author_id]["urls"].clear()
+        count = self.author_id_list.count(author_id)
+        for i in range(count):
+            self.author_id_list[self.author_id_list.index(author_id)] = None
+
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        if len(self._author_id_list) == 0:
+        if len(self.author_id_list) == 0:
             return
-        if int(self._author_id_list[0]) == member.id:
+        if int(self.author_id_list[0]) == member.id:
             if after.channel is None:
                 await self.check_current_voice(member)
-            elif after.channel and after.channel.id != self.list_of_songs[self._author_id_list[0]][-1]:
+            elif after.channel and after.channel.id != member.voice.channel.id:
                 await self.check_current_voice(member)
             return
 
@@ -333,14 +310,41 @@ class MusicCommands(commands.Cog):
                                    "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION", colour=disnake.Colour.red())
             return
 
-        self.set_settings_playlist(url, playlist_count)
+        if url in linked_allowed[:6]:
+            self._YDL_OPTIONS["format"] = "234/140/233"
+        else:
+            self._YDL_OPTIONS["format"] = "bestaudio.2/bestaudio"
 
         if not self.list_of_songs.get(author_id):
-            self.list_of_songs.update({author_id: (ctx.author.global_name, ctx.author.display_avatar, [], local_user)})
+            self.list_of_songs.update({author_id: {"name": ctx.author.global_name, "avatar": ctx.author.display_avatar, "lang": local_user, "urls": []}})
 
+        # Check it!!! Bug related with change var _YDL_OPTIONS direct
         if not self.spotify_track(url, playlist_count, author_id):
-            self.list_of_songs[author_id][2].append(url)
-            self._author_id_list.append(author_id)
+            if playlist_count > 1:
+                ydl_opts = self._YDL_OPTIONS.copy()
+                ydl_opts["noplaylist"] = False
+                ydl_opts["playlistend"] = "1"
+
+                start = []
+                for i in url[::-1]:
+                    try:
+                        int(i)
+                    except ValueError:
+                        break
+                    start.insert(0, i)
+
+                for c in range(playlist_count):
+                    self.author_id_list.append(author_id)
+
+                if len(start) > 0:
+                    start = "".join(start)
+                    ydl_opts["playlistitems"] = f"{start}:{int(start) + playlist_count}"
+                    ydl_opts["playlistend"] = playlist_count
+                self.list_of_songs[author_id]["urls"].append((url, ydl_opts))
+            else:
+                self.list_of_songs[author_id]["urls"].append(url)
+                self.author_id_list.append(author_id)
+
 
         await i18n_emb_message(ctx, False, "PLAY-COMMAND-ADD_LIST", colour=disnake.Colour.green(), delete_after=2)
 
@@ -349,111 +353,126 @@ class MusicCommands(commands.Cog):
         if vc and vc.is_playing():
             return
 
-        while len(self._author_id_list) > 0:
-            i = self._author_id_list[0]
+        while len(self.author_id_list) > 0:
+            i = self.author_id_list[0]
             if i is None:
-                self._author_id_list.pop(0)
+                self.author_id_list.pop(0)
                 continue
 
-            while len(self.list_of_songs[i][2]) > 0 and self._author_id_list[0] == i:
-                emb = disnake.Embed(title=None, description=self.bot.i18n.get("PLAY-COMMAND-BUTTON_SKIP")[self.list_of_songs.get(i)[-1]],
+            songs_list = self.list_of_songs[i]
+
+            while len(songs_list["urls"]) > 0 and self.author_id_list[0] == i:
+                emb = disnake.Embed(title=None, description=self.bot.i18n.get("PLAY-COMMAND-BUTTON_SKIP")[songs_list["lang"]],
                                     colour=disnake.Colour.green())
                 msg = await ctx.channel.send(embed=emb)
+                playlist_info = None
 
-                if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i:
-                    info = self._playlist_info[self.get_index(i, self._playlist_info)][1]
-                    if len(info) == 0:
-                        info = await self.download_video(self._YDL_OPTIONS, self.list_of_songs.get(i)[2][0])
-                    else:
-                        info = info[self.get_index(self.list_of_songs.get(i)[2][0], info, "original_url")]
+                if isinstance(songs_list["urls"][0], tuple) and isinstance(songs_list["urls"][0][-1], tuple):
+                    info = await self.download_video(self._YDL_OPTIONS, songs_list["urls"][0][0])
+                    playlist_info = (songs_list["urls"][0][-1][-1], songs_list["urls"][0][-1][0])
+                elif isinstance(songs_list["urls"][0], tuple):
+                    info = await self.download_video(songs_list["urls"][0][-1], songs_list["urls"][0][0])
+                elif isinstance(songs_list["urls"][0], list):
+                    info = songs_list["urls"][0][0]
+                    playlist_info = (info.get("__last_playlist_index"), info.get("playlist_index"))
                 else:
-                    info = await self.download_video(self._YDL_OPTIONS, self.list_of_songs.get(i)[2][0])
+                    info = await self.download_video(self._YDL_OPTIONS, songs_list["urls"][0])
 
                 await msg.delete()
 
-                URL = None
-                if info.get("entries") and len(info.get("entries")) > 1:
-                    self._playlist_info.append((i, []))
-                    self._author_id_list.pop()
-                    for v in info["entries"]:
-                        if self.list_of_songs[i][2][-1].startswith(v["original_url"]):
-                            self.list_of_songs[i][2].pop()
-                            URL = v["url"]
-                        elif self.list_of_songs[i][2][-1].startswith(url):
-                            self.list_of_songs[i][2].pop()
-                            URL = v["url"]
-                        self._playlist_info[-1][1].append(v)
-                        self._author_id_list.append(i)
-                        self.list_of_songs[i][2].append(v["original_url"])
-                    info = info["entries"][0]
-                else:
-                    if info.get("url") is None and info["entries"][0].get("url"):
-                        info = info["entries"][0]
-                        URL = info["url"]
-                    else:
-                        URL = info["url"]
+                entries = info.get("entries")
+                if entries and len(entries) > 1:
+                    songs_list["urls"][0] = entries
+                    info = songs_list["urls"][0][0]
+                    playlist_info = (str(len(songs_list["urls"][0])), info["playlist_index"])
+
+                URL = info["url"]
 
                 if URL.startswith("https://manifest.googlevideo.com/"):
                     msg_info = await i18n_emb_message(ctx, "PLAY-COMMAND-FFMPEG-ERROR_EMBED-TITLE",
                                                       "PLAY-COMMAND-FFMPEG-ERROR_EMBED-DESCRIPTION", ephemeral=True)
-                    new_opts = self._YDL_OPTIONS.copy()
-                    new_opts["format"] = "best"
-                    info = await self.download_video(new_opts, self.list_of_songs.get(i)[2][0])
+                    if self._YDL_OPTIONS["format"] != "234/233/140":
+                        self._YDL_OPTIONS["format"] = "best"
+                    info = await self.download_video(self._YDL_OPTIONS, info["webpage_url"])
                     URL = info["url"]
                     await msg_info.delete()
 
                 vc = await self.play_audio(ctx, URL)
 
                 emb = disnake.Embed(title=None,
-                                    description=f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1")[self.list_of_songs.get(i)[-1]]} "
-                                                f"{info["creator"] if info.get("creator") else None}\n"
-                                                f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2")[self.list_of_songs.get(i)[-1]]} "
-                                                f"{timedelta(seconds=info["duration"] if info.get("duration") else 0)}"
-                                                f"{f'\n{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3")[self.list_of_songs.get(i)[-1]]} {info["n_entries"]}' 
-                                                    if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i else ""}",
+                                    description=f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1")[songs_list["lang"]]} "
+                                                f"{info.get("creator")}\n"
+                                                f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2")[songs_list["lang"]]} "
+                                                f"{timedelta(seconds=info["duration"] if info.get("duration") else 0)}",
                                     colour=disnake.Colour.brand_green())
-                emb.set_author(name=f"{info["title"]} {f" - Playlist - {info["playlist_index"]}" if len(self._playlist_info) >= 1 and self._playlist_info[0][0] == i else ""}",
-                               url=info["original_url"], icon_url=info["thumbnails"][-1]["url"])
-                emb.set_footer(text=self.list_of_songs[i][0], icon_url=self.list_of_songs[i][1])
+
+                if playlist_info is not None:
+                    emb.add_field(name=f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-PLAYLIST-VIDEO_INDEX")[songs_list["lang"]]} "
+                                       f"{playlist_info[-1]}",
+                                  value=f"{self.bot.i18n.get(key="PLAY-COMMAND-INFO_EMBED-PLAYLIST-COUNT")[songs_list["lang"]]} "
+                                        f"{playlist_info[0]}")
+
+                emb.set_author(name=f"{info["title"]}", url=info["webpage_url"],
+                               icon_url=info["thumbnails"][-1]["url"])
+
+                emb.set_footer(text=songs_list["name"], icon_url=songs_list["avatar"])
 
                 msg = await ctx.channel.send(embed=emb, view=ControlPanel())
 
                 while vc.is_playing() or vc.is_paused():
-                    await asyncio.sleep(1)
+                    await sleep(1)
 
                 vc.stop()
 
                 await msg.delete()
+                if not len(songs_list["urls"]) < 1:
+                    if isinstance(songs_list["urls"][0], list) and len(songs_list["urls"][0]) > 1:
+                        songs_list["urls"][0].pop(0)
+                    else:
+                        songs_list["urls"].pop(0)
+                    self.author_id_list.pop(0)
 
-                if not len(self.list_of_songs[i][2]) < 1:
-                    self.list_of_songs[i][2].pop(0)
-                    self._author_id_list.pop(0)
-                    if not len(self._playlist_info) < 1:
-                        if self._playlist_info[0][0] == i and not len(self._playlist_info[self.get_index(i, self._playlist_info)][1]) < 1:
-                            self._playlist_info[self.get_index(i, self._playlist_info)][1].pop(0)
-                        else:
-                            self._playlist_info.pop(0)
+            self.list_of_songs.clear()
+            self.author_id_list.clear()
 
-        self.list_of_songs.clear()
-        self._playlist_info.clear()
-        self._author_id_list.clear()
-
-        if not vc.is_paused():
-            await sleep(60)
-            if not vc.is_playing() and vc:
-                await vc.disconnect()
+            if not vc.is_paused():
+                await sleep(60)
+                if not vc.is_playing() and vc:
+                    await vc.disconnect()
 
     @play.error
     async def play_error(self, ctx, error):
-        if len(self._playlist_info) > 0 and len(self._playlist_info[0][1]) > 0:
-            self._playlist_info[0][1].pop(0)
+        author_id = self.author_id_list.pop(0)
+        songs_list = self.list_of_songs[author_id]
+
+        if isinstance(error, ExtractorError):
+            emb_err = disnake.Embed(title="ExtractError",
+                                    description=f"{self.bot.i18n.get(key="PLAY-COMMAND-ERROR_EMBED-DESCRIPTION1")[songs_list["lang"]]}\n"
+                                                f"{self.bot.i18n.get(key="PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2")[songs_list["lang"]]}\n"
+                                                f"```{error}```", colour=disnake.Colour.red())
+        elif isinstance(error, DownloadError):
+            emb_err = disnake.Embed(title="DownloadError",
+                                    description=f"{self.bot.i18n.get(key="PLAY-COMMAND-ERROR_EMBED-DESCRIPTION1")[songs_list["lang"]]}\n"
+                                                f"{self.bot.i18n.get(key="PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2")[songs_list["lang"]]}\n"
+                                                f"```{error}```", colour=disnake.Colour.red())
         else:
-            self._playlist_info[0].pop(0)
-        author_id = self._author_id_list.pop(0)
-        if len(self.list_of_songs[author_id][2]):
-            self.list_of_songs[author_id][2].pop(0)
-        if len(self.list_of_songs) > 0:
+            emb_err = disnake.Embed(title="Error",
+                                    description=f"{self.bot.i18n.get(key="PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2")[songs_list["lang"]]}\n"
+                                                f"```{error}```", colour=disnake.Colour.red())
+        emb_err.set_footer(text=ctx.author.display_name, icon_url=ctx.author.avatar)
+        await ctx.send(embed=emb_err, ephemeral=True)
+
+        if isinstance(songs_list["urls"][0], list) and len(songs_list["urls"][0]) > 1:
+            songs_list["urls"][0].pop(0)
+        else:
+            songs_list["urls"].pop(0)
+
+        if len(self.list_of_songs.keys()) > 0 and len(self.author_id_list) > 0:
             await self.restart_play_command(ctx)
+        else:
+            self.list_of_songs.clear()
+            self.author_id_list.clear()
+
         print(error)
 
 
