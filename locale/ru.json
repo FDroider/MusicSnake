@@ -78,12 +78,15 @@
 
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Создатель:",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Продолжительность:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3": "Количество видео в плейлисте:",
+  "PLAY-COMMAND-INFO_EMBED-PLAYLIST-COUNT": "Количество видео в плейлисте:",
+  "PLAY-COMMAND-INFO_EMBED-PLAYLIST-VIDEO_INDEX": "Номер видео:",
 
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Ошибка",
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "Вы не подключены к войс чату",
   "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE": "Ошибка",
   "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION": "Сейчас руководит парадом пользаватель",
+  "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION1": "Ета ошибка возможно связана с пометкой '+18' или видео не для всех",
+  "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2": "Сообщение о ошибке:",
 
   "PLAY-COMMAND-BUTTON_PAUSE": "Пауза",
   "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Музыка уже не воспроизводится или закончилась",

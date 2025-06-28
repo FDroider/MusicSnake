@@ -78,12 +78,15 @@
 
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Creator:",
   "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Duration:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART3": "Playlist count:",
+  "PLAY-COMMAND-INFO_EMBED-PLAYLIST-COUNT": "Playlist count:",
+  "PLAY-COMMAND-INFO_EMBED-PLAYLIST-VIDEO_INDEX": "Number video:",
 
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-TITLE": "Error",
   "PLAY-COMMAND-ERROR_BUTTON-VOICE-DESCRIPTION": "You are not connected to voice chat",
   "PLAY-COMMAND-ERROR_BUTTON-USER-TITLE": "Error",
   "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION": "Another server member is currently using the bot:",
+  "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION1": "This error is probably related with video had mark '+18' or video not for everyone",
+  "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2": "Error message:",
 
   "PLAY-COMMAND-BUTTON_PAUSE": "Pause",
   "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Music is no longer playing or has ended",
