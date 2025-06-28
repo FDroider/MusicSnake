@@ -318,7 +318,6 @@ class MusicCommands(commands.Cog):
         if not self.list_of_songs.get(author_id):
             self.list_of_songs.update({author_id: {"name": ctx.author.global_name, "avatar": ctx.author.display_avatar, "lang": local_user, "urls": []}})
 
-        # Check it!!! Bug related with change var _YDL_OPTIONS direct
         if not self.spotify_track(url, playlist_count, author_id):
             if playlist_count > 1:
                 ydl_opts = self._YDL_OPTIONS.copy()
