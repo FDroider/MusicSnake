@@ -5,9 +5,6 @@ from disnake.ext import commands
 
 # Made FDroider
 
-# Repair send bug report
-#
-
 intents = disnake.Intents.all()
 command_sync_flags = commands.CommandSyncFlags.default()
 command_sync_flags.sync_commands_debug = False
@@ -29,7 +26,7 @@ async def i18n_emb_message(ctx, title_key, desc_key, title_extra="", desc_extra=
     emb.set_author(name=author_text if author_text else "", url=author_url, icon_url=author_icon)
     emb.set_footer(text=footer_text if footer_text else "", icon_url=footer_icon)
     if delete_after == Ellipsis:
-        delete_after = 0
+        return await ctx.followup.send(embed=emb, ephemeral=ephemeral)
     if response:
         return await ctx.response.send_message(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
     return await ctx.followup.send(embed=emb, delete_after=delete_after, ephemeral=ephemeral)
