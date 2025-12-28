@@ -67,6 +67,7 @@
 
   "PLAY-COMMAND-VOICE-ERROR_EMBED-TITLE": "Помилка підключення",
   "PLAY-COMMAND-VOICE-ERROR_EMBED-DESCRIPTION": "Цю команду можна скористатися тільки тоді, коли ви знаходитесь у війс чаті",
+  "PLAY-COMMAND-VOICE-BUSY-ERROR_EMBED": "Бот зайнятий в іншому каналі",
 
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-TITLE": "Помилка відтворення",
   "PLAY-COMMAND-SUPPORT-ERROR_EMBED-DESCRIPTION": "Це посилання введено неправильне або воно не підтримується!\nПеревірте правильність написання посилання",
@@ -74,10 +75,15 @@
   "PLAY-COMMAND-FFMPEG-ERROR_EMBED-TITLE": "Помилка відтворення",
   "PLAY-COMMAND-FFMPEG-ERROR_EMBED-DESCRIPTION": "Спроба завантажити інший формат",
 
-  "PLAY-COMMAND-ADD_LIST": "Додано в чергу",
+  "PLAY-COMMAND-ADD_LIST": "Додано в чергу:",
+  "PLAY-COMMAND-QUEUE-ENDED": "Черга закінчилась. Відключусь через 3 хвилини, якщо буде тихо",
+  "PLAY-COMMAND-SPOTIFY-SEARCH": "Шукаю треки зі Spotify...",
+  "PLAY-COMMAND-SPOTIFY-NOT-FOUND": "Не вдалося знайти треки або плейлист порожній",
+  "PLAY-COMMAND-SPOTIFY-PROCESSING": "Опрацьовую треки зі Spotify...",
+  "PLAY-COMMAND-YOUTUBE-PROCESSING": "Опрацьовую треки зі Youtube...",
 
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART1": "Творець:",
-  "PLAY-COMMAND-INFO_EMBED-DESCRIPTION_PART2": "Тривалість:",
+  "PLAY-COMMAND-INFO_EMBED-CREATOR": "Творець:",
+  "PLAY-COMMAND-INFO_EMBED-DURATION": "Тривалість:",
   "PLAY-COMMAND-INFO_EMBED-PLAYLIST-COUNT": "Кількість роликів в списку відтворень:",
   "PLAY-COMMAND-INFO_EMBED-PLAYLIST-VIDEO_INDEX": "Номер ролику:",
 
@@ -87,7 +93,7 @@
   "PLAY-COMMAND-ERROR_BUTTON-USER-DESCRIPTION": "Зараз ботом користується інший учасник сервера:",
   "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION1": "Ця помилка пов'язана з міткою '+18' або відео не для всіх",
   "PLAY-COMMAND-ERROR_EMBED-DESCRIPTION2": "Повідомлення щодо помилки:",
-
+  "PLAY-COMMAND-ERROR-GUILD": "Підтримуються тільки сервера!",
 
   "PLAY-COMMAND-BUTTON_PAUSE": "Пауза",
   "PLAY-COMMAND-BUTTON_PAUSE-ERROR": "Музика вже не програється чи закінчилася",
@@ -117,128 +123,5 @@
   "REPORT-COMMAND_EMBED-DESCRIPTION": "Ваш репорт надіслано на огляд",
 
   "REPORT-COMMAND_EMBED-FIELD-NAME": "",
-  "REPORT-COMMAND_EMBED-FIELD-VALUE": "",
-
-  "MY-WARNS-COMMAND-DESCRIPTIONS": "Ваша кількість попереджень",
-
-  "MY-WARNS-COMMAND_EMBED-TITLE": "Попередження",
-  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "В тебе",
-  "MY-WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "попередження",
-
-  "MY-WARNS-COMMAND_EMBED-FIELD-NAME": "Кількість порушень",
-  "MY-WARNS-COMMAND_EMBED-FIELD-VALUE": "В тебе",
-
-  "WARNS-COMMAND-DESCRIPTIONS": "Переглянути лічильник попереджень іншого користувача",
-  "WARNS-COMMAND-DESCRIPTIONS_PARAMETERS": "Нік користувача",
-
-  "WARNS-COMMAND_EMBED-TITLE": "Попередження",
-  "WARNS-COMMAND_EMBED-DESCRIPTION-PART1": "У користувача",
-  "WARNS-COMMAND_EMBED-DESCRIPTION-PART2": "попереджень",
-  "WARNS-COMMAND_EMBED-FIELD-NAME": "Кількість порушень",
-  "WARNS-COMMAND_EMBED-FIELD-VALUE": "У користувача їх",
-
-  "ADD-WARN-DESCRIPTIONS": "Видати користувачу попередження",
-  "ADD-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Нік користувача",
-  "ADD-WARN-DESCRIPTIONS_PARAMETERS-REASON": "Причина видання попередження",
-  "ADD-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "Кількісь поереджень, які будуть видані",
-
-  "ADD-WARM_EMBED-TITLE": "Користувачеві було видано варн",
-  "ADD-WARN_EMBED-DESCRIPTION": "видав варн/ни",
-  "ADD-WARN_EMBED-FIELD1-NAME": "Нік користувача якому видано варн",
-  "ADD-WARN_EMBED-FIELD2-NAME": "Причина видачі варна",
-  "ADD-WARN_EMBED-FIELD3-NAME": "Кількість варнів",
-
-  "DEL-WARN-DESCRIPTIONS": "Видалити попередження у користувача",
-  "DEL-WARN-DESCRIPTIONS_PARAMETERS-MEMBER": "Нік користувача",
-  "DEL-WARN-DESCRIPTIONS_PARAMETERS-TICKET": "Кількісь поереджень, які будуть забрані",
-
-  "DEL-WARN-SUCCESS_EMBED-TITLE": "У користувача забрали варн/ни",
-  "DEL-WARN-SUCCESS_EMBED-DESCRIPTION": "забрав варн/ни",
-  "DEL-WARN-SUCCESS_EMBED-FIELD1-NAME": "Нік користувача в якого забрали варн",
-  "DEL-WARN-SUCCESS_EMBED-FIELD2-NAME": "Кількість забраних варнів",
-
-  "DEL-WARN-ERROR_EMBED-TITLE": "Помилка",
-  "DEL-WARN-ERROR_EMBED-DESCRIPTION": "У користувача немає варнів",
-
-  "ADD-COUNT-DESCRIPTIONS": "Видати користувачу порушеня",
-  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Нік користувача",
-  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-REASON": "Причина видання порушеня",
-  "ADD-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "Кількісь порушень, які будуть видані",
-
-  "ADD-COUNT_EMBED-TITLE": "Користувачеві було видано порушення",
-  "ADD-COUNT_EMBED-DESCRIPTION": "видав порушення",
-  "ADD-COUNT_EMBED-FIELD1-NAME": "Нік користувача якому видали порушення",
-  "ADD-COUNT_EMBED-FIELD2-NAME": "Причина видачі порушення",
-  "ADD-COUNT_EMBED-FIELD3-NAME": "Кількість порущень",
-
-  "DEL-COUNT-DESCRIPTIONS": "Видалити порушення у користувача",
-  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-MEMBER": "Нік користувача",
-  "DEL-COUNT-DESCRIPTIONS_PARAMETERS-TICKET": "Кількісь порушеня, які будуть забрані",
-
-  "DEL-COUNT-SUCCESS_EMBED-TITLE": "У користувача забрали порушення",
-  "DEL-COUNT-SUCCESS_EMBED-DESCRIPTION": "забрав порушення",
-  "DEL-COUNT-SUCCESS_EMBED-FIELD1-NAME": "Нік користувача в яклшл забрали порушення",
-  "DEL-COUNT-SUCCESS_EMBED-FIELD2-NAME": "Кількість забраних порушень",
-
-  "DEL-COUNT-ERROR_EMBED-TITLE": "Помилка",
-  "DEL-COUNT-ERROR_EMBED-DESCRIPTION": "У користувача немає порушень!",
-
-
-  "CHECK-COUNT-BAN_EMBED1-TITLE": "Ти був забанен на цьому сервері",
-  "CHECK-COUNT-BAN_EMBED1-FIELD1-NAME": "Сервер на якому забанили",
-  "CHECK-COUNT-BAN_EMBED1-FIELD2-NAME": "Причина бана",
-  "CHECK-COUNT-BAN_EMBED1-FIELD2-VALUE": "Перевищення лічильника порушень",
-
-  "CHECK-COUNT-BAN_EMBED2-TITLE": "Користувач був забанен",
-  "CHECK-COUNT-BAN_EMBED2-FIELD1-NAME": "Нік користувача",
-  "CHECK-COUNT-BAN_EMBED2-FIELD2-NAME": "Причина бана",
-  "CHECK-COUNT-BAN_EMBED2-FILED2-VALUE": "Перевищення лічильника порушень",
-
-  "CHECK-COUNT-NOTIFICATION_EMBED-TITLE": "Користувач отримав бан",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD1-NAME": "Нік користувача",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-NAME": "Час бана",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD2-VALUE": "1 день",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-NAME": "Причина бана",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD3-VALUE": "Перевищення лічильника попереджень",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-NAME": "*Нагадування*",
-  "CHECK-COUNT-NOTIFICATION_EMBED-FIELD4-VALUE": "При перевищенні лічильника попереджень буде підвищуватись лічильник порушень",
-
-  "CHECK-LINK_EMBED-TITLE": "Порушуємо!",
-  "CHECK-LINK_EMBED-DESCRIPTION": "Ти отримаєш попередження за (можливе) рекламне посилання",
-  "CHECK-LINK_EMBED-FIELD-NAME": "Помилково вважали, що це посилання на інший сервер?",
-  "CHECK-LINK_EMBED-FIELD-VALUE": "Якщо це правда, тоді зверніться до адміністратора або до мого розробника для додавання посилання у виключення",
-
-  "CHECK-MESSAGE-WARN_EMBED-TITLE": "Припини говорити погані слова!",
-  "CHECK-MESSAGE-WARN_EMBED-DESCRIPTION": "Ти отримуєш мут і попередження за порушення правил сервера",
-
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-TITLE": "Зафіксовано порушення правил",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART1": "Користувач",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-DESCRIPTION_PART2": "порушив правила сервера",
-
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-NAME": "Увага!",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD1-VALUE": "був помічений порушник правил",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD2-NAME": "Канал порушення",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD3-NAME": "Вміст видаленого повідомлення",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD4-NAME": "ID користувача",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-NAME": "Статус покарання",
-  "CHECK-MESSAGE-NOTIFICATION_EMBED-FIELD5-VALUE": "Видано",
-
-  "CHECK-MESSAGE-NOTIFICATION_EMBED2-TITLE": "Ти отримав мут за порушення правил сервера",
-
-  "CHECK-SPAM-ALERT_MESSAGE": "Помічено підозрілу активність на сервері!\nМожливо це рейд",
-
-  "CHECK-SPAM-WARN_EMBED-TITLE": "Припини спамити!",
-  "CHECK-SPAM-WARN_EMBED-DESCRIPTION": "Ти отримуєш мут на 1 час + варн за спам!",
-
-  "CHECK-SPAM-NOTIFICATION_EMBED-TITLE": "Зафіксовано порушення правил",
-  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART1": "Користувач",
-  "CHECK-SPAM-NOTIFICATION_EMBED-DESCRIPTION_PART2": "порушив правила сервера",
-
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-NAME": "Увага!",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD1-VALUE": "був помічений порушник правил",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD2-NAME": "Канал порушення",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD3-NAME": "Вміст видаленого повідомлення",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD4-NAME": "ID користувача",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-NAME": "Статус покарання",
-  "CHECK-SPAM-NOTIFICATION_EMBED-FIELD5-VALUE": "Не видано(недостатньо прав)"
+  "REPORT-COMMAND_EMBED-FIELD-VALUE": ""
 }
