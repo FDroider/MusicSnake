@@ -4,11 +4,8 @@ App.log
 MusicBot.log
 .idea
 .env
-.venv3.13
-venv
+.venv
 cogs/chat-bot.py
-cogs/creator.py
 Bot_used.py
-update_req.py
 __pycache__
 ffmpeg.exe
